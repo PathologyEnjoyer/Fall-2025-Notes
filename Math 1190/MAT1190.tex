@@ -1,0 +1,550 @@
+
+\documentclass[x11names,reqno,14pt]{extarticle}
+\input{preamble}
+\usepackage[document]{ragged2e}
+\usepackage{epsfig}
+\usepackage{dynkin-diagrams}
+
+\pagestyle{fancy}{
+	\fancyhead[L]{Fall 2024}
+	\fancyhead[C]{MAT1344F}
+	\fancyhead[R]{John White}
+  
+  \fancyfoot[R]{\footnotesize Page \thepage \ of \pageref{LastPage}}
+	\fancyfoot[C]{}
+	}
+\fancypagestyle{firststyle}{
+     \fancyhead[L]{}
+     \fancyhead[R]{}
+     \fancyhead[C]{}
+     \renewcommand{\headrulewidth}{0pt}
+	\fancyfoot[R]{\footnotesize Page \thepage \ of \pageref{LastPage}}
+}
+\newcommand{\pmat}[4]{\begin{pmatrix} #1 & #2 \\ #3 & #4 \end{pmatrix}}
+\newcommand{\A}{\mathbb{A}}
+\newcommand{\B}{\mathbb{B}}
+\newcommand{\fin}{``\in"}
+\newcommand{\mk}[1]{\mathfrak{#1}}
+\newcommand{\g}{\mk{g}}
+\newcommand{\h}{\mk{h}}
+\newcommand{\J}{\mc{J}}
+\newcommand{\tphi}{\tilde{\phi}}
+\newcommand{\pois}[2]{\{#1,#2\}}
+\newcommand{\fibrate}[3]{\begin{tikzcd} #1 \ar[d, "#2"] \\ #3 \end{tikzcd}}
+\renewcommand{\t}{\mk{t}}
+\DeclareMathOperator{\Perm}{Perm}
+\DeclareMathOperator{\pdim}{pdim}
+\DeclareMathOperator{\gldim}{gldim}
+\DeclareMathOperator{\lgldim}{lgldim}
+\DeclareMathOperator{\rgldim}{rgldim}
+\DeclareMathOperator{\idim}{idim}
+\DeclareMathOperator{\SU}{SU}
+\DeclareMathOperator{\SO}{SO}
+\DeclareMathOperator{\Ad}{Ad}
+\DeclareMathOperator{\ad}{ad}
+\DeclareMathOperator{\gr}{gr}
+\DeclareMathOperator{\Sig}{Sig}
+\newcommand{\Rmod}{R-\text{mod}}
+\newcommand{\RMod}{R-\text{Mod}}
+\newcommand{\onto}{\twoheadrightarrow}
+\newcommand{\into}{\hookrightarrow}
+\newcommand{\barf}{\bar{f}}
+\newcommand{\dd}[2]{\frac{d#1}{d#2}}
+\newcommand{\pp}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\gl}{\mk{g}\mk{l}}
+\newcommand{\spew}{\Sp(E,\omega)}
+\newcommand{\jew}{\mc{J}(E,\omega)}
+\newcommand{\Specmax}{\operatorname{Spec}_{\operatorname{max}}}
+\renewcommand{\P}{\mathbb{P}}
+\renewcommand{\E}{\mathbb{E}}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Rank}{Rank}
+\DeclareMathOperator{\Sp}{Sp}
+\DeclareMathOperator{\ann}{ann}
+\DeclareMathOperator{\Lag}{Lag}
+\DeclareMathOperator{\Riem}{Riem}
+\DeclareMathOperator{\Span}{span}
+\newcommand{\exactlon}[5]{
+		\begin{tikzcd}
+			0\ar[r]&#1\ar[r,"#2"]& #3 \ar[r,"#4"]& #5 \ar[r]&0
+		\end{tikzcd}
+}
+
+\title{MAT 1190}
+\author{John White}
+\date{Fall 2025}
+
+
+\begin{document}
+
+\section*{Lecture 1, 3/9/25 (Happy birthday to me)}
+
+Oh dear, we're starting with chapter 2 of Hartshorne...
+
+Read chapter 1.1 of Hartshorne before friday
+
+Test your understanding of the important bits against Exercise 1.4(Zariski vs product topology)
+
+Following theorem is perhaps unconventional for an ag class.
+
+We use the 	``Bourbaki conventions:"
+
+\defn
+
+A topological space $X$ is said to be \underline{quasicompact} if for every open cover $X = \bigcup_{i\in I}U_i$, there existss a finite subcover $I' \subset I$ such that $X = \bigcup_{i\in I'}U_i$. 
+
+This is usally called ``compact".
+
+\defn
+
+A topological space is said to be \underline{compact} if it is quasicompact and Hausdorff.
+
+\paragraph{Recall:} $X$ is called \underline{Hausdorff} if for all pairs $(x, y)$ of \underline{distinct} points there exist neighborhoods $U_x, U_y$ of $x, y$, such that $U_x \cap U_y = \varnothing$. 
+
+In French, one uses the term ``separated space."
+
+These terms will reappear in algebraic geometry when studying separated schemes.
+
+\paragraph{}
+
+This property is equivalent to the following: For $(x, y) \in X\times X \setminus \bigtriangleup$ (the diagonal elements $\{(x,x) \mid x \in X\}$), there are neighborhoods $U \ni x, V \ni y$, with $U\times V \cap \bigtriangleup = \varnothing$. 
+
+Hence $U\times V$ lies entirely within the complement of the diagonal. So $(x, y)$ is in the interior of $X\times X \setminus \bigtriangleup$. 
+
+Using the definition of the product topology, one can show that $X$ is a Hausdorff space if and only if $\bigtriangleup$ is closed in the product topology. This is the formulation which will be meaningful when we transport to algebraic geometry. 
+
+\thm[Gelfond-Naymark]
+
+Roughly: 
+
+A compact (quasicompact + hausdorff) topological space can be ``recovered" from the ring $C(X) \eqdef C(X,\R)$ of continuous real-valued functions.
+
+\proof
+
+This is a special case of what they proved. Will get into proof later
+
+\qed
+
+In particular, we want it to be true that if $X, Y$ are two compact spaces with abstractly isomorphic rings of functions, i.e. $C(X) \cong C(Y)$, then $X, Y$ should be homeomorphic, $X \cong Y$. 
+
+\paragraph{\underline{From rings to spaces}}
+
+To fix conventions: 
+
+\defn
+
+When we write ``ring", we always mean a commutative, unital ring. So $C(X)$ is indeed always a ring (obviously). 
+\paragraph{}
+
+\underline{First step:}
+
+Try to recover the underlying set of points. 
+
+Ideals: given $x \in X$, we obtain a ring homomorphism, called the \underline{evaluation index at $x$}, $e_x:C(X)\to \R$ which takes a continuous real-valued function and evaluates it at $x$: $f\mapsto f(x)$. 
+
+Since $(f+g)(x) = f(x) + g(x)$, and similarly for multiplication, this really is a ring homomorphism. 
+
+\paragraph{Fact:} This map $(e_x)$ is surjective because of constant functions. 
+
+Thus we have the isomorphisms $\R \cong \frac{C(X)}{\ker(e_x)}$. We refer to the denominator as $\mathfrak{M}_x$, the ideal of functions vanishing at $x \in X$. Note that the quotient is a field, so $\mathfrak{M}_x$ is maximal. 
+
+\defn
+
+Let $R$ be a ring. We denote by $\Specmax(R)$ the set of maximal ideals in $R$. 
+
+\prop
+
+Let $X$ be compact. Then there exists a bijection of sets $X \cong \Specmax C(X)$. 
+
+The precise claim may be summarized as follows: 
+\begin{itemize}
+
+\item Every maximal ideal $I$ of $C(X)$ is of the form $I = e_x$ for some $x \in X$. 
+
+\item If $x, y$ are points in $X$, and $\mathfrak{M}_x  =\mathfrak{M}_y$, then $x = y$. 
+
+\end{itemize}
+
+\proof
+\qed
+
+What about the topology? Let $R$ be an abstract ring with the additional property that for every maximal ideal $\mk{M}\in\Specmax R$, the quotient $R/\mk{M} \cong \R$. Then we can make the following construction: for every element of the ring, we can associate to every element $f \in R$ a function $f:\Specmax R \to \R$ in the following way: $\mk{M}\mapsto \barf \in \R \cong R/\mk{M}$. 
+
+\paragraph{Aside:}
+
+To an algebraist, we think of $\R|(\bar{\Q}\cap\R)$ as a transcendental extension, $\R = (\bar{\Q}\cap \R)(\alpha_0,\alpha_1,\dots)$. So, there are lots of field automorphisms on $\R$, none of which are continuous. 
+
+Aside over. 
+
+\paragraph{Now:} Look at the coarsest topology on $\Specmax R$ such that all functions $\mk{M} \mapsto f + \mk{M} \in \R$ are continuous for each $f \in R$. 
+
+That is, the topology on $\Specmax R$ is generated by preimages $f^{-1}(U)$, where $f:\Specmax R\to\R$ denotes the map associated with $f \in R$. 
+
+Due to the existence of noncontinuous elements of $\Aut(\R)$, it is problematic to work with the standard topology. 
+
+It is in some way ``unnatural" to think of the topology of $\R$ analyticaly, if we want to do algebra. 
+
+\paragraph{Instead:} We use the cofinite topology on $\R$ instead, i.e. the nonempty open subsets are the complements of finite sets. 
+
+\defn
+
+Let $R$ be a ring. Then the \underline{Zariski topology} on $\Specmax R$ is the topology generated by ``standard open subsets," which are defined as subsets of the form 
+\[
+U_f = \{\mk{M} \in \Specmax R \mid f\not\in \mk{M}\}
+\]
+
+It is in a certain way ``algebraically robust". 
+
+\paragraph{Remark:} The condition that $f \not \in \mk{M}$ has a very geometric meaning. If every maximal ideal is of the shape $\mk{M}_x$, then this condition is equivalent to $\underbrace{f(x)}_{=f+\mk{M}_x} \neq 0$. 
+
+So the Zariski topology is generated by \underline{non-vanishing loci}. 
+
+Why (maximal) spectrum of a Ring? Let $A$ be a \underline{normal} (meaning commutes with its adjoint) matrix/operator. Look at the commutative ring $R$ in $\End_{cts}$ generated by $A,A^\dagger$, take the closure $\bar{R}$. Then $\Specmax \bar{R} = \operatorname{Spec}(A)$, where the right hand side is the functional analysis spectrum of $A$. 
+
+\section*{Lecture 2, 5/9/25}
+
+Last time: Gelfand-Naymark
+
+We had a ``dictionary" relating compact spaces and their function rings. Given an abstract ring of functions, we can reconstruct a compact space. Points correspond to maximal ideals, with the topology generated by preimages $f^{-1}(U)$, where $f:\Specmax R\to\R$ is the map $\mk{M}\mapsto \barf\in R/\mk{M}\cong\R$.
+
+\paragraph{}
+
+Today: \underline{Nullstellensatz} (Hilbert zero theorem)
+
+Aside on etymology: ``Nullstellen" means ``a zero of a function/polynomial", and "satz" means theorem. 
+
+\underline{Fix:} A field $k$, assumed to be 
+\begin{itemize}
+
+\item Algebraically closed
+
+\item (for simplicity) uncountable
+
+\end{itemize}
+
+Given a subset $T$ of a polynomial ring over $k$, $T \subseteq R_n \eqdef k[X_1,\dots,X_n]$, we denote by $Z(T)$ the set of common zeroes in $k^n$:
+\[
+Z(T)\eqdef \{(x = (x_1,\dots,x_n) \mid f(x) = 0\, \forall f \in T\}
+\]
+
+The collection of subsets obtained in this way are called ``algebraic sets" by Hartshorne. In this class, we will call them \underline{affine algebraic varieties}. 
+
+\claim
+
+Denoting by $(T)$ the ideal in $R_n$ generated by $T$, we have $Z\left((T)\right) = Z(T)$
+
+\proof
+
+Think
+
+\qed
+
+\underline{Conversely:} Given any subset $S\subseteq k^n$, we may consider the ideal of polynomials in $k_n$ vanishing on $S$. 
+\[
+\mathcal{I}(S) = \{f\in R_n \mid f(z) = 0\, \forall z \in S\}  
+\]
+\[
+\begin{tikzcd}
+\text{alg subsets} \ar[r, dotted, bend left = 30, "\mathcal{I}"] & \text{ideals} \ar[l, dotted, bend left = 30, "Z"]
+\end{tikzcd}
+\]
+
+\underline{Careful:} 
+\begin{itemize}
+
+\item $\mc{I}\left(Z(I)\right) \supset I$
+
+$Z\left(\mc{I}(S)\right) \supset \bar{S}$ (we call $\bar{S}$ the \underline{Zariski closure}, which just means the closure in the Zariski topology)
+
+\end{itemize}
+
+\defn
+
+The \underline{Zariski topology} is defined to be the topology on $k^n$ with closed subsets being the algebraic subsets. 
+
+Reminder: we assume a field $k$ is algebraically complete and uncountable.
+
+\lem
+
+Let $L/k$ be a field extension with $\dim_k(L) \leq |\N|$. Then $L = k$.
+
+\proof
+
+Assume by contradiction that there exists $x \in L\setminus k$. Consider the \underline{uncountable} family given by 
+\[
+\{\frac{1}{(x-\lambda)} \mid lambda \in k\}
+\]
+But $\dim_k L \leq |\N|$, so there is a $k$-linear relation. That is, there exists $\lambda_1,\dots,\lambda_r \in k, \mu_1\dots,\mu_r\in k$ so that
+\[
+\sum_{i=1}^r\frac{\mu_i}{x -\lambda_i} = 0
+\]
+Clearing the denominators: 
+\[
+\sum_{i=1}^r \mu_i\prod_{s\neq r}(x-\lambda_s) =0
+\]
+This is $P(t)$ for some $P$ in $k[t]$. But $k$ is algebraically closed, so $t$ is in $k$, contradiction. 
+
+\qed
+
+\cor[Weak Nullstellensatz]
+
+Let $T \subset R_n$ such that $Z(T) = \varnothing$. Then $(T) = (1) = R_n$.
+
+\proof
+
+Assume by contradiction that $(T) := I \neq R_n$. By Zorn's lemma, there exists a maximal ideal $\mk{M} \supset I$. We look at the chain of quotient maps
+\[
+R_n \to R_n/I \to \underbrace{R_n/\mk{M}}_{\text{field}} = k
+\]
+
+The composition sends $X_i \to x_i \in k$. So $\{R_n \to k\} \supset \{R_n/I \to k\}$. But the former is $k^n$, and the latter is $Z(I)$, which is nonzero, contradicting that $\mk{m}$ is maximal. 
+
+\qed
+
+\underline{Now:} \underline{Rabinowitsch trick}
+
+\lem
+
+Let $T = \{f_1, \dots, f_r\} \subset R_n$ and $f \in \mc{I}\left(Z(T)\right)$, i.e. if $f_i(x) = 0$ for all $i = 1,\dots,r$, then $f(x) = 0$. 
+
+Then there is an $N \in \N$ such that $f^N \in (T)$. 
+
+\proof
+
+Add an auxiliary variable $t$, work with the ring $R_n[t] \equiv R_{n+1}$.
+
+By assumption, $\{(1-tf), f_1, \dots, f_r\} = T'$ doesn't have a common zero, so by weak Nullstellensatz, $(T') = (1)$, so there exists $g_0,\dots,g_r \in R_n[t]$ so that $g_0(1-tf) + g_1f_1 + \dots + g_rf_r = 1$. 
+
+Substitute $t = \frac{1}{f}$, and $g_1f_1 + \dots + g_rf_r = 1$ in a ring of rational functions: $R_n[\frac{1}{f}]$. 
+
+Clearing denominators by multiplying by a sufficiently high power of $f$, we get another expression
+\[
+\tilde{g_1}f_1 + \dots + \tilde{g_r}f_r = f^N \in R_n
+\]
+So $f^N \in (T)$. 
+
+\qed
+
+\defn
+
+Let $I \subset R$ be an ideal. We denote by $\sqrt{I} \subset R$ the \underline{radical} of $I$, the set of all $x \in R$ so that $x^n \in I$ for some $n$. 
+
+\thm[Nullstellensatz]
+
+For an ideal $I \subset R$, we have $\mc{I}\left(Z(I)\right) = \sqrt{I}$
+
+\proof
+
+Combine the lemma with the fact that $R_n$ is a Noetherian ring (i.e. ideals are finitely generated). 
+
+\qed
+
+\cor
+
+There is a 1-1 correspondence between affine algebraic $k$-varieities (up to isomorphism) and finitely generated reduced $k$-algebras (up to isomorphism)
+
+\proof
+
+$Z(\sqrt{I})$ corresponds to $R_n / \sqrt{I}$. An isomorphism between varieities is a pair of polynomial maps that map the varieties onto each other and are mutual inverses. 
+
+\qed
+
+There is a stronger version, which gives an equivalence of categories. $\operatorname{AffVar}_k$ is the category whose objects are affine $k$-varieties, and whose morphisms are polynomial maps between ambient spaces preserving the varieties. The category $(\operatorname{Alg}^{red}_k)^\text{op}$ is the opposite category of reduced finitely generated $k$-algebras. The above furnishes an equivalence of these categories. 
+
+
+\section*{Lecture 3, 8/9/25}
+
+\underline{Today:} Sheaves via \'Etal\'e Spaces
+
+\paragraph{Most textbooks:} 
+\begin{itemize}
+
+\item Define presheaves first on a fixed space
+
+\item Then define gluing condition for sections of presheaves
+
+\item Sheaves are defined as presheaves satisfying the gluing condition
+
+\end{itemize}
+
+\'etaler is the French word for ``to spread out." 
+
+Later on, we will encounter the word \'etale, which will appear in the notion of \'etale morphisms of schemes and \'etale cohomology. 
+
+Warning: don't drop the \underline{accent aigue}
+
+\defn
+
+Let $X$ be a topological space. A continuous map $\pi:\mc{S}\to X$ is called a \underline{local homeomorphism} if the following are satisfied:
+
+\begin{itemize}
+
+\item $\pi$ is an open map
+
+\item For every $x \in \mc{S}$, there is an open neighborhood $U\ni x$ such that $\pi|_U:U\to \pi(U)$ is a homeomorphism.
+
+\end{itemize}
+
+In this case, we will say that $\mc{S}$ is \underline{\'etal\'e} above $X$, or call it an \underline{\'etal\'e space}, or simply a sheaf on $X$.
+
+\exm\,
+
+\begin{enumerate}
+
+\item $\varnothing \into X$
+
+\item $\Id_X:X\to X$
+
+\item Let $I$ be a set with the discrete topology. Then $\operatorname{pr}:X\times I \to X$
+
+\item Any covering space, e.g. the M\"obius covering $\mbb{S}^1 \to \mbb{S}^1$ sending $z$ to $z^2$, viewing $\mbb{S}^1$ as a subset of $\C$. 
+
+\item The inclusion $\iota:U\into X$ for any open subset $U$. 
+
+\item For $x \in X$, build a new space by doubling $x$:
+\[
+X \coprod_{X\setminus\{x\}} X = (X\coprod X)/\sim
+\]
+There's a natural map $\bigtriangledown$ to $X$, the co-diagonal map. 
+
+\item Let $I \neq \varnothing$ be a set.  
+\[
+\bigtriangledown: S_{I,x} \eqdef \underbrace{X \coprod_{X\setminus\{x\}} \cdots \coprod_{X\setminus \{x\}} X}_{I\text{ times }}\to X
+\]
+
+\end{enumerate}
+
+\underline{Non-example:} 
+
+Take a non-open subset $M \subset X$. Then the inclusion $\iota:M\into X$ is not a local homeomorphism. 
+
+\defn
+
+Let $U\subseteq X$ be open, $\mc{S}$ an \'etal\'e space above $X$. Then \underline{a section on $U$} is a continuous map $s:U\to\mc{S}$ such that $\pi\circ s = \Id_U$. That is, the diagram commutes:
+\[
+\begin{tikzcd}
+& \mc{S} \ar[d, "\pi"] \\
+U \ar[ur,"s"] \ar[r,hook,"\iota"] & X
+\end{tikzcd}
+\]
+
+The set of all sections on $U$ will be denoted by $\mc{S}(U)$ or $\Gamma(U,\mc{S})$. 
+
+If $U = X$, then $s$ is called a \underline{global section}, and we use the notation $\Gamma(\mc{S})$ or $\Gamma(X)$.
+
+Let's revisit the examples above:
+\begin{enumerate}
+
+\item 
+\[
+\begin{tikzcd}
+& \varnothing \ar[d, hook] \\
+U \ar[ur,dotted,"?"] \ar[r,hook] & X
+\end{tikzcd}
+\]
+If $U$ is nonempty, $\mc{S}(U)$ will be empty, and it will be a singleton if $U$ is empty (namely, $\Id_{\varnothing}:\varnothing\to\varnothing$)
+
+\item 
+\[
+\begin{tikzcd}
+& X \ar[d,"\Id"] \\
+U \ar[ur,"\iota",hook] \ar[r,hook] & X
+\end{tikzcd}
+\]
+In this case, $\mc{S}(U) = \{\iota\}$, the inclusion.
+
+\item 
+\[
+\begin{tikzcd}
+& X \times I\ar[d,"pr"] \\
+U \ar[ur,"?"] \ar[r,hook] & X
+\end{tikzcd}
+\]
+In this case, $\mc{S}(U) = I$ if $U$ is connected. Otherwise, it is the set of continuous maps from $U$ to $I$, where $I$ carries the discrete topology. We can also think of this as the set of ways to express $U$ as a disjoint union of open subsets indexed by $I$.
+
+\item 
+\[
+\begin{tikzcd}
+& \mc{S}^1\ar[d,"z^2"] \\
+U \ar[ur,dotted] \ar[r,hook] & \mc{S}^1
+\end{tikzcd}
+\]
+$\mc{S}(U) = \begin{cases} \varnothing & U = \mc{S}^1 \\ \{*\} & U = \varnothing \\ ? & U \text{ general} \end{cases}$
+
+For $U$ general, $\mc{S}(U)  = \{f:U\to\C \mid \forall z \in U, f(z)^2 = z\}$
+
+\item 
+\[
+\begin{tikzcd}
+& U \ar[d, hook, "\iota_U"] \\
+V \ar[r,hook,"\iota_V"] \ar[ur, dotted] & X
+\end{tikzcd}
+\]
+$\mc{S}(V) = \{*\}$ if $V \subset U$, $\varnothing$ otherwise. 
+
+\item 
+\[
+\begin{tikzcd}
+& S = X\coprod_{X\setminus\{x\}} X \ar[d, "\bigtriangledown"] \\
+U \ar[ur,dotted,"s"] \ar[r,hook] & X 
+\end{tikzcd}
+\]
+$\mc{S}(U) = \{*\}$ if $U\not\ni x$, otherwise $\{1,2\}$, depending on the choice of which of the two copies of the point $x$. 
+
+\item 
+\[
+\begin{tikzcd}
+& S_{I,x} \ar[d, "\bigtriangledown"] \\
+U \ar[ur,dotted,"s"] \ar[r,hook] & X 
+\end{tikzcd}
+\]
+Again, $\mc{S}(U) = \{*\}$ if $U \not\ni x$, and $I$ if $U \ni x$. 
+
+We call this example the ``\underline{skyscraper sheaf at $x$}"
+
+\end{enumerate}
+
+There are many other examples, some even more interesting, which can be described using this theory.
+
+\subsection*{\underline{Holomorphic functions as continuous sections}}
+
+Let $X = \C$ with the standard topology. 
+
+\claim
+
+There exists a space $\ms{H}$ with a local homeomorphism $\pi:X\to\C$ such that continuous sections correspond to holomorphic functions on $\C$, i.e. 
+\[
+\ms{H}(U) \cong \{f:U\to \C \mid f\text{ holomorphic }\}
+\]
+compatible with restrictions to smaller open subsets. 
+
+\proof
+
+As a set, 
+\[
+\ms{H} = \coprod_{z_0\in\C}\{\sum_{n\in\N}c_n(z - z_0)^n \mid \exists r > 0 \text{ the series converges absolutely in a radius $r$ around $z_0$ }\}
+\]
+The map from $\ms{H}\to\C$ is given by sending a power series which converges in a radius around $z_0$ to $z_0$. 
+
+To get the topology, we choose the strongest topology on $\ms{H}$ such that for every open subset $U$, and every holomorphic function $f:U\to\C$, the induced map $Xf:U\to \ms{H}$ given by $z_0 \mapsto $Taylor$(f, z = z_0)$ is continuous. 
+
+Exercise: Check that $\ms{H}(U) = \{f:U\to \C$ holomorphic $\}$ in a natural way. 
+
+\underline{Remark:} This looks like a generalization of a \underline{phase space} of $\C$ with a real topology:
+\[
+\R^n \to \R^{2n}, x(t) \mapsto ((x(t), \dot{x}(t))
+\]
+
+For this week, read Hartshorne section 2.1 (sheaves)
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
