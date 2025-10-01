@@ -1,0 +1,2067 @@
+
+\documentclass[x11names,reqno,14pt]{extarticle}
+\input{preamble}
+\usepackage[document]{ragged2e}
+\usepackage{epsfig}
+\usepackage{dynkin-diagrams}
+
+\pagestyle{fancy}{
+	\fancyhead[L]{Fall 2024}
+	\fancyhead[C]{MAT1344F}
+	\fancyhead[R]{John White}
+  
+  \fancyfoot[R]{\footnotesize Page \thepage \ of \pageref{LastPage}}
+	\fancyfoot[C]{}
+	}
+\fancypagestyle{firststyle}{
+     \fancyhead[L]{}
+     \fancyhead[R]{}
+     \fancyhead[C]{}
+     \renewcommand{\headrulewidth}{0pt}
+	\fancyfoot[R]{\footnotesize Page \thepage \ of \pageref{LastPage}}
+}
+\newcommand{\pmat}[4]{\begin{pmatrix} #1 & #2 \\ #3 & #4 \end{pmatrix}}
+\newcommand{\A}{\mathbb{A}}
+\newcommand{\B}{\mathbb{B}}
+\newcommand{\fin}{``\in"}
+\newcommand{\mk}[1]{\mathfrak{#1}}
+\newcommand{\g}{\mk{g}}
+\newcommand{\h}{\mk{h}}
+\newcommand{\J}{\mc{J}}
+\newcommand{\tphi}{\tilde{\phi}}
+\newcommand{\pois}[2]{\{#1,#2\}}
+\newcommand{\fibrate}[3]{\begin{tikzcd} #1 \ar[d, "#2"] \\ #3 \end{tikzcd}}
+\renewcommand{\t}{\mk{t}}
+\newcommand{\p}{\mk{p}}
+\renewcommand{\O}{\mc{O}}
+\DeclareMathOperator{\aff}{aff}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Perm}{Perm}
+\DeclareMathOperator{\pdim}{pdim}
+\DeclareMathOperator{\gldim}{gldim}
+\DeclareMathOperator{\lgldim}{lgldim}
+\DeclareMathOperator{\rgldim}{rgldim}
+\DeclareMathOperator{\idim}{idim}
+\DeclareMathOperator{\SU}{SU}
+\DeclareMathOperator{\SO}{SO}
+\DeclareMathOperator{\Ad}{Ad}
+\DeclareMathOperator{\ad}{ad}
+\DeclareMathOperator{\gr}{gr}
+\DeclareMathOperator{\Sig}{Sig}
+\DeclareMathOperator{\Sh}{Sh}
+\DeclareMathOperator{\Psh}{Psh}
+\DeclareMathOperator{\LRS}{LocRingdSpc}
+\DeclareMathOperator{\Fun}{Fun}
+\newcommand{\Rmod}{R-\text{mod}}
+\newcommand{\RMod}{R-\text{Mod}}
+\newcommand{\onto}{\twoheadrightarrow}
+\newcommand{\into}{\hookrightarrow}
+\newcommand{\barf}{\bar{f}}
+\newcommand{\dd}[2]{\frac{d#1}{d#2}}
+\newcommand{\pp}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\gl}{\mk{g}\mk{l}}
+\newcommand{\spew}{\Sp(E,\omega)}
+\newcommand{\jew}{\mc{J}(E,\omega)}
+\newcommand{\Specmax}{\operatorname{Spec}_{\operatorname{max}}}
+\renewcommand{\P}{\mathbb{P}}
+\renewcommand{\E}{\mathbb{E}}
+\DeclareMathOperator{\Ext}{Ext}
+\DeclareMathOperator{\Rank}{Rank}
+\DeclareMathOperator{\Sp}{Sp}
+\DeclareMathOperator{\ann}{ann}
+\DeclareMathOperator{\Lag}{Lag}
+\DeclareMathOperator{\Riem}{Riem}
+\DeclareMathOperator{\Span}{span}
+\newcommand{\exactlon}[5]{
+		\begin{tikzcd}
+			0\ar[r]&#1\ar[r,"#2"]& #3 \ar[r,"#4"]& #5 \ar[r]&0
+		\end{tikzcd}
+}
+
+\title{MAT 1190}
+\author{John White}
+\date{Fall 2025}
+
+
+\begin{document}
+
+\section*{Lecture 1, 3/9/25 (Happy birthday to me)}
+
+Oh dear, we're starting with chapter 2 of Hartshorne...
+
+Read chapter 1.1 of Hartshorne before friday
+
+Test your understanding of the important bits against Exercise 1.4(Zariski vs product topology)
+
+Following theorem is perhaps unconventional for an ag class.
+
+We use the 	``Bourbaki conventions:"
+
+\defn
+
+A topological space $X$ is said to be \underline{quasicompact} if for every open cover $X = \bigcup_{i\in I}U_i$, there existss a finite subcover $I' \subset I$ such that $X = \bigcup_{i\in I'}U_i$. 
+
+This is usally called ``compact".
+
+\defn
+
+A topological space is said to be \underline{compact} if it is quasicompact and Hausdorff.
+
+\paragraph{Recall:} $X$ is called \underline{Hausdorff} if for all pairs $(x, y)$ of \underline{distinct} points there exist neighborhoods $U_x, U_y$ of $x, y$, such that $U_x \cap U_y = \varnothing$. 
+
+In French, one uses the term ``separated space."
+
+These terms will reappear in algebraic geometry when studying separated schemes.
+
+\paragraph{}
+
+This property is equivalent to the following: For $(x, y) \in X\times X \setminus \bigtriangleup$ (the diagonal elements $\{(x,x) \mid x \in X\}$), there are neighborhoods $U \ni x, V \ni y$, with $U\times V \cap \bigtriangleup = \varnothing$. 
+
+Hence $U\times V$ lies entirely within the complement of the diagonal. So $(x, y)$ is in the interior of $X\times X \setminus \bigtriangleup$. 
+
+Using the definition of the product topology, one can show that $X$ is a Hausdorff space if and only if $\bigtriangleup$ is closed in the product topology. This is the formulation which will be meaningful when we transport to algebraic geometry. 
+
+\thm[Gelfond-Naymark]
+
+Roughly: 
+
+A compact (quasicompact + hausdorff) topological space can be ``recovered" from the ring $C(X) \eqdef C(X,\R)$ of continuous real-valued functions.
+
+\proof
+
+This is a special case of what they proved. Will get into proof later
+
+\qed
+
+In particular, we want it to be true that if $X, Y$ are two compact spaces with abstractly isomorphic rings of functions, i.e. $C(X) \cong C(Y)$, then $X, Y$ should be homeomorphic, $X \cong Y$. 
+
+\paragraph{\underline{From rings to spaces}}
+
+To fix conventions: 
+
+\defn
+
+When we write ``ring", we always mean a commutative, unital ring. So $C(X)$ is indeed always a ring (obviously). 
+\paragraph{}
+
+\underline{First step:}
+
+Try to recover the underlying set of points. 
+
+Ideals: given $x \in X$, we obtain a ring homomorphism, called the \underline{evaluation index at $x$}, $e_x:C(X)\to \R$ which takes a continuous real-valued function and evaluates it at $x$: $f\mapsto f(x)$. 
+
+Since $(f+g)(x) = f(x) + g(x)$, and similarly for multiplication, this really is a ring homomorphism. 
+
+\paragraph{Fact:} This map $(e_x)$ is surjective because of constant functions. 
+
+Thus we have the isomorphisms $\R \cong \frac{C(X)}{\ker(e_x)}$. We refer to the denominator as $\mathfrak{M}_x$, the ideal of functions vanishing at $x \in X$. Note that the quotient is a field, so $\mathfrak{M}_x$ is maximal. 
+
+\defn
+
+Let $R$ be a ring. We denote by $\Specmax(R)$ the set of maximal ideals in $R$. 
+
+\prop
+
+Let $X$ be compact. Then there exists a bijection of sets $X \cong \Specmax C(X)$. 
+
+The precise claim may be summarized as follows: 
+\begin{itemize}
+
+\item Every maximal ideal $I$ of $C(X)$ is of the form $I = e_x$ for some $x \in X$. 
+
+\item If $x, y$ are points in $X$, and $\mathfrak{M}_x  =\mathfrak{M}_y$, then $x = y$. 
+
+\end{itemize}
+
+\proof
+\qed
+
+What about the topology? Let $R$ be an abstract ring with the additional property that for every maximal ideal $\mk{M}\in\Specmax R$, the quotient $R/\mk{M} \cong \R$. Then we can make the following construction: for every element of the ring, we can associate to every element $f \in R$ a function $f:\Specmax R \to \R$ in the following way: $\mk{M}\mapsto \barf \in \R \cong R/\mk{M}$. 
+
+\paragraph{Aside:}
+
+To an algebraist, we think of $\R|(\bar{\Q}\cap\R)$ as a transcendental extension, $\R = (\bar{\Q}\cap \R)(\alpha_0,\alpha_1,\dots)$. So, there are lots of field automorphisms on $\R$, none of which are continuous. 
+
+Aside over. 
+
+\paragraph{Now:} Look at the coarsest topology on $\Specmax R$ such that all functions $\mk{M} \mapsto f + \mk{M} \in \R$ are continuous for each $f \in R$. 
+
+That is, the topology on $\Specmax R$ is generated by preimages $f^{-1}(U)$, where $f:\Specmax R\to\R$ denotes the map associated with $f \in R$. 
+
+Due to the existence of noncontinuous elements of $\Aut(\R)$, it is problematic to work with the standard topology. 
+
+It is in some way ``unnatural" to think of the topology of $\R$ analyticaly, if we want to do algebra. 
+
+\paragraph{Instead:} We use the cofinite topology on $\R$ instead, i.e. the nonempty open subsets are the complements of finite sets. 
+
+\defn
+
+Let $R$ be a ring. Then the \underline{Zariski topology} on $\Specmax R$ is the topology generated by ``standard open subsets," which are defined as subsets of the form 
+\[
+U_f = \{\mk{M} \in \Specmax R \mid f\not\in \mk{M}\}
+\]
+
+It is in a certain way ``algebraically robust". 
+
+\paragraph{Remark:} The condition that $f \not \in \mk{M}$ has a very geometric meaning. If every maximal ideal is of the shape $\mk{M}_x$, then this condition is equivalent to $\underbrace{f(x)}_{=f+\mk{M}_x} \neq 0$. 
+
+So the Zariski topology is generated by \underline{non-vanishing loci}. 
+
+Why (maximal) spectrum of a Ring? Let $A$ be a \underline{normal} (meaning commutes with its adjoint) matrix/operator. Look at the commutative ring $R$ in $\End_{cts}$ generated by $A,A^\dagger$, take the closure $\bar{R}$. Then $\Specmax \bar{R} = \operatorname{Spec}(A)$, where the right hand side is the functional analysis spectrum of $A$. 
+
+\section*{Lecture 2, 5/9/25}
+
+Last time: Gelfand-Naymark
+
+We had a ``dictionary" relating compact spaces and their function rings. Given an abstract ring of functions, we can reconstruct a compact space. Points correspond to maximal ideals, with the topology generated by preimages $f^{-1}(U)$, where $f:\Specmax R\to\R$ is the map $\mk{M}\mapsto \barf\in R/\mk{M}\cong\R$.
+
+\paragraph{}
+
+Today: \underline{Nullstellensatz} (Hilbert zero theorem)
+
+Aside on etymology: ``Nullstellen" means ``a zero of a function/polynomial", and "satz" means theorem. 
+
+\underline{Fix:} A field $k$, assumed to be 
+\begin{itemize}
+
+\item Algebraically closed
+
+\item (for simplicity) uncountable
+
+\end{itemize}
+
+Given a subset $T$ of a polynomial ring over $k$, $T \subseteq R_n \eqdef k[X_1,\dots,X_n]$, we denote by $Z(T)$ the set of common zeroes in $k^n$:
+\[
+Z(T)\eqdef \{(x = (x_1,\dots,x_n) \mid f(x) = 0\, \forall f \in T\}
+\]
+
+The collection of subsets obtained in this way are called ``algebraic sets" by Hartshorne. In this class, we will call them \underline{affine algebraic varieties}. 
+
+\claim
+
+Denoting by $(T)$ the ideal in $R_n$ generated by $T$, we have $Z\left((T)\right) = Z(T)$
+
+\proof
+
+Think
+
+\qed
+
+\underline{Conversely:} Given any subset $S\subseteq k^n$, we may consider the ideal of polynomials in $k_n$ vanishing on $S$. 
+\[
+\mathcal{I}(S) = \{f\in R_n \mid f(z) = 0\, \forall z \in S\}  
+\]
+\[
+\begin{tikzcd}
+\text{alg subsets} \ar[r, dotted, bend left = 30, "\mathcal{I}"] & \text{ideals} \ar[l, dotted, bend left = 30, "Z"]
+\end{tikzcd}
+\]
+
+\underline{Careful:} 
+\begin{itemize}
+
+\item $\mc{I}\left(Z(I)\right) \supset I$
+
+$Z\left(\mc{I}(S)\right) \supset \bar{S}$ (we call $\bar{S}$ the \underline{Zariski closure}, which just means the closure in the Zariski topology)
+
+\end{itemize}
+
+\defn
+
+The \underline{Zariski topology} is defined to be the topology on $k^n$ with closed subsets being the algebraic subsets. 
+
+Reminder: we assume a field $k$ is algebraically complete and uncountable.
+
+\lem
+
+Let $L/k$ be a field extension with $\dim_k(L) \leq |\N|$. Then $L = k$.
+
+\proof
+
+Assume by contradiction that there exists $x \in L\setminus k$. Consider the \underline{uncountable} family given by 
+\[
+\{\frac{1}{(x-\lambda)} \mid lambda \in k\}
+\]
+But $\dim_k L \leq |\N|$, so there is a $k$-linear relation. That is, there exists $\lambda_1,\dots,\lambda_r \in k, \mu_1\dots,\mu_r\in k$ so that
+\[
+\sum_{i=1}^r\frac{\mu_i}{x -\lambda_i} = 0
+\]
+Clearing the denominators: 
+\[
+\sum_{i=1}^r \mu_i\prod_{s\neq r}(x-\lambda_s) =0
+\]
+This is $P(t)$ for some $P$ in $k[t]$. But $k$ is algebraically closed, so $t$ is in $k$, contradiction. 
+
+\qed
+
+\cor[Weak Nullstellensatz]
+
+Let $T \subset R_n$ such that $Z(T) = \varnothing$. Then $(T) = (1) = R_n$.
+
+\proof
+
+Assume by contradiction that $(T) := I \neq R_n$. By Zorn's lemma, there exists a maximal ideal $\mk{M} \supset I$. We look at the chain of quotient maps
+\[
+R_n \to R_n/I \to \underbrace{R_n/\mk{M}}_{\text{field}} = k
+\]
+
+The composition sends $X_i \to x_i \in k$. So $\{R_n \to k\} \supset \{R_n/I \to k\}$. But the former is $k^n$, and the latter is $Z(I)$, which is nonzero, contradicting that $\mk{m}$ is maximal. 
+
+\qed
+
+\underline{Now:} \underline{Rabinowitsch trick}
+
+\lem
+
+Let $T = \{f_1, \dots, f_r\} \subset R_n$ and $f \in \mc{I}\left(Z(T)\right)$, i.e. if $f_i(x) = 0$ for all $i = 1,\dots,r$, then $f(x) = 0$. 
+
+Then there is an $N \in \N$ such that $f^N \in (T)$. 
+
+\proof
+
+Add an auxiliary variable $t$, work with the ring $R_n[t] \equiv R_{n+1}$.
+
+By assumption, $\{(1-tf), f_1, \dots, f_r\} = T'$ doesn't have a common zero, so by weak Nullstellensatz, $(T') = (1)$, so there exists $g_0,\dots,g_r \in R_n[t]$ so that $g_0(1-tf) + g_1f_1 + \dots + g_rf_r = 1$. 
+
+Substitute $t = \frac{1}{f}$, and $g_1f_1 + \dots + g_rf_r = 1$ in a ring of rational functions: $R_n[\frac{1}{f}]$. 
+
+Clearing denominators by multiplying by a sufficiently high power of $f$, we get another expression
+\[
+\tilde{g_1}f_1 + \dots + \tilde{g_r}f_r = f^N \in R_n
+\]
+So $f^N \in (T)$. 
+
+\qed
+
+\defn
+
+Let $I \subset R$ be an ideal. We denote by $\sqrt{I} \subset R$ the \underline{radical} of $I$, the set of all $x \in R$ so that $x^n \in I$ for some $n$. 
+
+\thm[Nullstellensatz]
+
+For an ideal $I \subset R$, we have $\mc{I}\left(Z(I)\right) = \sqrt{I}$
+
+\proof
+
+Combine the lemma with the fact that $R_n$ is a Noetherian ring (i.e. ideals are finitely generated). 
+
+\qed
+
+\cor
+
+There is a 1-1 correspondence between affine algebraic $k$-varieities (up to isomorphism) and finitely generated reduced $k$-algebras (up to isomorphism)
+
+\proof
+
+$Z(\sqrt{I})$ corresponds to $R_n / \sqrt{I}$. An isomorphism between varieities is a pair of polynomial maps that map the varieties onto each other and are mutual inverses. 
+
+\qed
+
+There is a stronger version, which gives an equivalence of categories. $\operatorname{AffVar}_k$ is the category whose objects are affine $k$-varieties, and whose morphisms are polynomial maps between ambient spaces preserving the varieties. The category $(\operatorname{Alg}^{red}_k)^\text{op}$ is the opposite category of reduced finitely generated $k$-algebras. The above furnishes an equivalence of these categories. 
+
+
+\section*{Lecture 3, 8/9/25}
+
+\underline{Today:} Sheaves via \'Etal\'e Spaces
+
+\paragraph{Most textbooks:} 
+\begin{itemize}
+
+\item Define presheaves first on a fixed space
+
+\item Then define gluing condition for sections of presheaves
+
+\item Sheaves are defined as presheaves satisfying the gluing condition
+
+\end{itemize}
+
+\'etaler is the French word for ``to spread out." 
+
+Later on, we will encounter the word \'etale, which will appear in the notion of \'etale morphisms of schemes and \'etale cohomology. 
+
+Warning: don't drop the \underline{accent aigue}
+
+\defn
+
+Let $X$ be a topological space. A continuous map $\pi:\mc{S}\to X$ is called a \underline{local homeomorphism} if the following are satisfied:
+
+\begin{itemize}
+
+\item $\pi$ is an open map
+
+\item For every $x \in \mc{S}$, there is an open neighborhood $U\ni x$ such that $\pi|_U:U\to \pi(U)$ is a homeomorphism.
+
+\end{itemize}
+
+In this case, we will say that $\mc{S}$ is \underline{\'etal\'e} above $X$, or call it an \underline{\'etal\'e space}, or simply a sheaf on $X$.
+
+\exm\,
+
+\begin{enumerate}
+
+\item $\varnothing \into X$
+
+\item $\Id_X:X\to X$
+
+\item Let $I$ be a set with the discrete topology. Then $\operatorname{pr}:X\times I \to X$
+
+\item Any covering space, e.g. the M\"obius covering $\mbb{S}^1 \to \mbb{S}^1$ sending $z$ to $z^2$, viewing $\mbb{S}^1$ as a subset of $\C$. 
+
+\item The inclusion $\iota:U\into X$ for any open subset $U$. 
+
+\item For $x \in X$, build a new space by doubling $x$:
+\[
+X \coprod_{X\setminus\{x\}} X = (X\coprod X)/\sim
+\]
+There's a natural map $\bigtriangledown$ to $X$, the co-diagonal map. 
+
+\item Let $I \neq \varnothing$ be a set.  
+\[
+\bigtriangledown: S_{I,x} \eqdef \underbrace{X \coprod_{X\setminus\{x\}} \cdots \coprod_{X\setminus \{x\}} X}_{I\text{ times }}\to X
+\]
+
+\end{enumerate}
+
+\underline{Non-example:} 
+
+Take a non-open subset $M \subset X$. Then the inclusion $\iota:M\into X$ is not a local homeomorphism. 
+
+\defn
+
+Let $U\subseteq X$ be open, $\mc{S}$ an \'etal\'e space above $X$. Then \underline{a section on $U$} is a continuous map $s:U\to\mc{S}$ such that $\pi\circ s = \Id_U$. That is, the diagram commutes:
+\[
+\begin{tikzcd}
+& \mc{S} \ar[d, "\pi"] \\
+U \ar[ur,"s"] \ar[r,hook,"\iota"] & X
+\end{tikzcd}
+\]
+
+The set of all sections on $U$ will be denoted by $\mc{S}(U)$ or $\Gamma(U,\mc{S})$. 
+
+If $U = X$, then $s$ is called a \underline{global section}, and we use the notation $\Gamma(\mc{S})$ or $\Gamma(X)$.
+
+Let's revisit the examples above:
+\begin{enumerate}
+
+\item 
+\[
+\begin{tikzcd}
+& \varnothing \ar[d, hook] \\
+U \ar[ur,dotted,"?"] \ar[r,hook] & X
+\end{tikzcd}
+\]
+If $U$ is nonempty, $\mc{S}(U)$ will be empty, and it will be a singleton if $U$ is empty (namely, $\Id_{\varnothing}:\varnothing\to\varnothing$)
+
+\item 
+\[
+\begin{tikzcd}
+& X \ar[d,"\Id"] \\
+U \ar[ur,"\iota",hook] \ar[r,hook] & X
+\end{tikzcd}
+\]
+In this case, $\mc{S}(U) = \{\iota\}$, the inclusion.
+
+\item 
+\[
+\begin{tikzcd}
+& X \times I\ar[d,"pr"] \\
+U \ar[ur,"?"] \ar[r,hook] & X
+\end{tikzcd}
+\]
+In this case, $\mc{S}(U) = I$ if $U$ is connected. Otherwise, it is the set of continuous maps from $U$ to $I$, where $I$ carries the discrete topology. We can also think of this as the set of ways to express $U$ as a disjoint union of open subsets indexed by $I$.
+
+\item 
+\[
+\begin{tikzcd}
+& \mc{S}^1\ar[d,"z^2"] \\
+U \ar[ur,dotted] \ar[r,hook] & \mc{S}^1
+\end{tikzcd}
+\]
+$\mc{S}(U) = \begin{cases} \varnothing & U = \mc{S}^1 \\ \{*\} & U = \varnothing \\ ? & U \text{ general} \end{cases}$
+
+For $U$ general, $\mc{S}(U)  = \{f:U\to\C \mid \forall z \in U, f(z)^2 = z\}$
+
+\item 
+\[
+\begin{tikzcd}
+& U \ar[d, hook, "\iota_U"] \\
+V \ar[r,hook,"\iota_V"] \ar[ur, dotted] & X
+\end{tikzcd}
+\]
+$\mc{S}(V) = \{*\}$ if $V \subset U$, $\varnothing$ otherwise. 
+
+\item 
+\[
+\begin{tikzcd}
+& S = X\coprod_{X\setminus\{x\}} X \ar[d, "\bigtriangledown"] \\
+U \ar[ur,dotted,"s"] \ar[r,hook] & X 
+\end{tikzcd}
+\]
+$\mc{S}(U) = \{*\}$ if $U\not\ni x$, otherwise $\{1,2\}$, depending on the choice of which of the two copies of the point $x$. 
+
+\item 
+\[
+\begin{tikzcd}
+& S_{I,x} \ar[d, "\bigtriangledown"] \\
+U \ar[ur,dotted,"s"] \ar[r,hook] & X 
+\end{tikzcd}
+\]
+Again, $\mc{S}(U) = \{*\}$ if $U \not\ni x$, and $I$ if $U \ni x$. 
+
+We call this example the ``\underline{skyscraper sheaf at $x$}"
+
+\end{enumerate}
+
+There are many other examples, some even more interesting, which can be described using this theory.
+
+\subsection*{\underline{Holomorphic functions as continuous sections}}
+
+Let $X = \C$ with the standard topology. 
+
+\claim
+
+There exists a space $\ms{H}$ with a local homeomorphism $\pi:X\to\C$ such that continuous sections correspond to holomorphic functions on $\C$, i.e. 
+\[
+\ms{H}(U) \cong \{f:U\to \C \mid f\text{ holomorphic }\}
+\]
+compatible with restrictions to smaller open subsets. 
+
+\proof
+
+As a set, 
+\[
+\ms{H} = \coprod_{z_0\in\C}\{\sum_{n\in\N}c_n(z - z_0)^n \mid \exists r > 0 \text{ the series converges absolutely in a radius $r$ around $z_0$ }\}
+\]
+The map from $\ms{H}\to\C$ is given by sending a power series which converges in a radius around $z_0$ to $z_0$. 
+
+To get the topology, we choose the strongest topology on $\ms{H}$ such that for every open subset $U$, and every holomorphic function $f:U\to\C$, the induced map $Xf:U\to \ms{H}$ given by $z_0 \mapsto $Taylor$(f, z = z_0)$ is continuous. 
+
+Exercise: Check that $\ms{H}(U) = \{f:U\to \C$ holomorphic $\}$ in a natural way. 
+
+\underline{Remark:} This looks like a generalization of a \underline{phase space} of $\C$ with a real topology:
+\[
+\R^n \to \R^{2n}, x(t) \mapsto ((x(t), \dot{x}(t))
+\]
+
+For this week, read Hartshorne section 2.1 (sheaves)
+
+\section*{Lecture 4, 10/9/25}
+
+\underline{Today:} Stalks
+
+On Monday, we did sheaf theory via \'etal\'e spaces. 
+
+We define a sheaf as a continuous map $\pi:\mc{S}\to X$ which is a local homeomorphism. In this case we say $\mc{S}$ is an \'etal\'e space, or simply a sheaf on $X$.
+
+\defn
+
+Let $X$ be a space, $\pi:\mc{S}\to X$ an \'etal\'e space over $X$. For every $x \in X$ we denote the preimae $\pi^{-1}(x)$ by $\mc{S}_x$ and call it the \underline{stalk of $\mc{S}$ at $x$}.
+
+Do NOT call it a fiber! (We will use this terminology for something different later)
+
+\exm
+\,
+\begin{enumerate}
+
+\item When $\mc{S} = \varnothing \into X$, for all $x$, $\mc{S}_x = \varnothing$. 
+
+\item When $\mc{S} = X$, $\pi= \Id:X\to X$, $\mc{S}_x = \{x\}$, a singleton. 
+
+\item When $\mc{S} = X\times I$, for a discrete space $I$, $pr:X\times I \to X$ the projection map, we have $\mc{S}_x \cong I$.
+
+\item When $\mc{S} = S_{I,x}$, the skyscraper sheaf at $x$, $\bigtriangledown: S_{I,x} \to X$, we have $\mc{S}_y = \{*\}$ a singleton if $y \neq x$, and $\mc{S}_x = I$
+
+\item Consider the space $\ms{H}\to \C = X$ defined last time, the sheaf of holomorphic functions. Then 
+\[
+\ms{H}_x = \{\sum_{k=0}^\oo c_k(z-z_0)^k \mid \exists \varepsilon>0\text{ the sum converges in a ball of radius }\varepsilon\text{ around }z_0\}
+\]
+
+\end{enumerate}
+
+\lem
+\,
+\begin{itemize}
+
+\item[Existence:] Let $\pi:\mc{S}\to X$ be an \'etal\'e space over $X$, $x \in X$, and let $y \in \mc{S}_x$ be an element of the stalk. Then there exists an open neighborhood $U \ni x$ and section $s \in \mc{S}(U)$, $s:U\to\mc{S}$, such that $s(x) = y$.
+
+\item[Uniqueness:] Further, given two pairs $(U_1, s_1),(U_2,s_2)$ with this property, then there exists $V \subset U_1 \cap U_2$ such that $s_1|_V = s_2|_V$.
+
+\end{itemize}
+
+\proof
+
+Left as an exercise. Hint: use that $\pi$ is a local homeomorphism. 
+
+\underline{Categorical reformulation:}
+
+Consider the collection of all neighborhoods of $x$, ordered by inclusion, and take 
+\[
+ev_x: \operatorname{colim}_{U\ni x\text{ open}} \mc{S}(U) \to \mc{S}_x
+\]
+Then this is a bijection.
+
+In the case of sets, we can describe the right hand side as equivalence classes of pairs $\{(U,s)\}$, $U\ni x$ open, $s\in \mc{S}(U)$, where $(U,s) \sim (V,t)$ if there exists an open $W \subseteq U\cap V$ such that $s|_W = t|_W$.
+
+This colimit corresponds to the set of germs of sections near $x$.
+
+\lem
+\,
+\begin{enumerate}
+
+\item Let $f:X\to Y, g:Y\to Z$ be composable continuous maps. Denote by $h$ their composition, $h = g\circ f$. Then if $f, g$ are local homeomorphisms, then $h$ is a local homeomorphism. 
+
+\item If $g$ and $h$ are local homeomorphisms, then $f$ is a local homeomorphism.
+
+\end{enumerate}
+
+\proof
+
+Omitted
+
+\qed
+
+\defn[Category of sheaves]
+
+Let $X$ be a topological space. Then the \underline{Category of sheaves on $X$, $Sh(X)$}, is defined to have as its objects the \'etal\'e spaces over $X$, and morphisms defined to be those $\varphi:\mc{S}_1\to\mc{S}_2$ making the diagram commute:
+\[
+\begin{tikzcd}
+\mc{S}_1 \ar[dr,"\pi_1"] \ar[rr, "\varphi"] && \mc{S}_2 \ar[dl, "\pi_2"']  \\
+& X & \\
+\end{tikzcd}
+\]
+
+\lem[Isomorphism criterion]
+
+Let $\phi:\mc{S}_1\to\mc{S}_2$ be a morphism in $Sh(X)$. Then $\varphi$ is an isomorphism if and only if $(\mc{S}_1)_x\to(\mc{S}_2)_x$ is bijective for all $x \in X$. 
+
+\proof
+
+Suppose $\varphi:\mc{S}_1\to\mc{S}_2$ is a bijection of sets. Bijective continuous open maps are homeomorphisms, thus there is an inverse in $Sh(X)$. Other direction is clear. 
+
+\qed
+
+\lem[Injectivity criterion]
+
+The above holds replacing bijection with injection.
+
+\proof
+
+\qed
+
+We can restate in terms of sections.
+
+\lem
+
+Let $\varphi:\mc{S}_1\to\mc{S}_2$ be a morphism in $Sh(X)$ such that for every $U\subseteq X$ open, the induced map $\mc{S}_1(U)\to\mc{S}_2(U)$ is a bijection. Then $\varphi$ is an isomorphism.
+
+\proof
+
+Apply the isomorphism criterion, 
+\[
+\begin{tikzcd}
+(\mc{S}_1)_x \ar[r, "\cong"] \ar[d, "\varphi","\cong"'] & colim_{U\ni x}\mc{S}_1(U) \ar[d,"\cong"] \\
+(\mc{S}_2)_x \ar[r, "\cong"] & colim_{U\ni x}\mc{S}_2(U)
+\end{tikzcd}
+\]
+So the induced maps on every stalk is an iso, so $\varphi$ is an isomorphism.
+
+This also works with injection. 
+
+\qed
+\,
+
+We expect the same to hold for surjections. That is, we would hope that if $\varphi:\mc{S}_1\to\mc{S}_2$ is surjective, then for all $U \subset X$, the induced map $\mc{S}_1(U)\to\mc{S}_2(U)$ is surjective. This is \underline{false!}
+\,
+\,
+\,
+\dbend
+
+\underline{Counterexample:}
+
+Let $X = \mbb{S}^1$. We have the sheaf $\Id_X:X\to X$. It has the M\"obius automorphism $z \mapsto z^2$, which is also a sheaf over $X$:
+\[
+\begin{tikzcd}
+\mc{S} \ar[r] \ar[dr] & X \ar[d,"\Id_X"] \\
+& X
+\end{tikzcd}
+\]
+If both unlabeled maps are $z\mapsto z^2$, then the upper map is a surjective map of \'etal\'e spaces, but $\mc{S}(X) = \varnothing$ does not surject onto $X(X) = \{*\}$. 
+
+\lem[Local lifts exist]
+
+Given a surjection $\mc{S}_1\to\mc{S}_2$ in $Sh(X)$, and open $U \subseteq X$, and a section $s \in \mc{S}_2(U)$, there exists an open cover $U = \bigcup_{i\in I}U_i$ and sections $t_i \in \mc{S}_1(U_i)$ such that $\varphi(t_i) = s|_{u_i}$ for all $i$. 
+
+\proof
+
+Let $\varphi$ be a surjective map of \'etal\'e spaces. For all $x \in X$, $\varphi:(\mc{S}_1)_x \to (\mc{S}_2)_x$ is surjective. We take the element $[(s,U)] \in (\mc{S}_2)_x$, which has a preimage $[(t,V)]$. We can repeat this for every $x \in U_i$ to obtain the collection of pairs $(U_i,t_i)$.
+
+\underline{Abstract perspective:}
+
+Consider the commutative triangle 
+\[
+\begin{tikzcd}
+\mc{S}_n \ar[dr] \ar[r,"\varphi"] & \mc{S}_2 \ar[d] \\
+& X \ar[u, "s"', bend right = 30] 
+\end{tikzcd}
+\]
+
+With $s$ a global section. Then $s \in \mc{S}_2$ can be lifted to $t \in \mc{S}_1(X)$ if and only if $s^{-1}\mc{S}_1$ has a global section
+
+\section*{Lecture 4, 12/9/25}
+
+\underline{Today:} Fiber products (of spaces), preimage and pushforward sheaves, presheaves. 
+
+Recall: a sheaf on $X$ is the same thing as an \'etal\'e space over $X$, a topological space $\mc{S}$ with a local homeomorphism $\pi:\mc{S}\to X$, and a morphism of sheaves is a map $\varphi:\mc{S}_1\to\mc{S}_2$ making the diagram commute:
+\[
+\begin{tikzcd}
+\mc{S}_1 \ar[rr,"\varphi"]\ar[dr] && \mc{S}_2 \ar[dl] \\
+& X & 
+\end{tikzcd}
+\]
+Note that $\varphi$ must also be a local homeomorphism.
+We define the stalk at a point $x$, $\mc{S}_x$, as simply the preimage $\pi^{-1}(x) \subseteq \mc{S}$. 
+
+\subsection*{\underline{Fiber products}}
+
+Given a diagram of continuous maps of topological spaces
+\[
+\begin{tikzcd}
+X\times_Y Z \ar[r] \ar[d] & Z \ar[d,"g"] \\
+X \ar[r,"f"] & Y
+\end{tikzcd}
+\]
+The top left $X\times_YZ \eqdef \{(x,z) \in X\times Z \mid f(x) = g(z) \}$ endowed with the subspace topology in $X\times Z$. 
+
+\underline{Universal property:}
+\[
+\begin{tikzcd}
+T \ar[drr, bend left = 30, "\beta"] \ar[dr,dotted,"\exists!"]\ar[ddr, bend right = 30, "\alpha"] & & \\
+& X\times_Y Z \ar[r] \ar[d] & Z \ar[d,"g"] \\
+& X \ar[r,"f"] & Y
+\end{tikzcd}
+\]
+Given an $\alpha,\beta$ as above making the diagram commute, there is a unique map from $T$ to $X\times_YZ$ making the diagram commute. 
+\exm
+\,
+\begin{enumerate}
+
+\item The usual product:
+\[
+\begin{tikzcd}
+X\times Z \ar[r] \ar[d] & Z \ar[d,"g"] \\
+X \ar[r,"f"]& \{*\} 
+\end{tikzcd}
+\]
+
+\item The fiber above a point $y$:
+\[
+\begin{tikzcd}
+f^{-1}(y) \ar[r]\ar[d] & \{*\}\ar[d, "y"] \\
+X \ar[r, "f"] & Y 
+\end{tikzcd}
+\]
+\end{enumerate}
+
+\underline{Preimage-sheaf:}
+
+Given a continuous $f:Y\to X$, we have a functor $f^{-1}: \Sh(X)\to \Sh(Y)$, 
+\[
+(\pi:\mc{S}\to X) \mapsto (\pi':\mc{S}\times_X Y \to Y)
+\]
+\[
+\begin{tikzcd}
+\mc{S}\times_X Y \ar[r] \ar[d, "\pi'"] & \mc{S} \ar[d,"\pi"] \\
+Y \ar[r,"f"] & X 
+\end{tikzcd}
+\]
+
+\lem
+
+$\pi'$ in the above is indeed a sheaf
+
+\proof
+
+Chase definitions
+
+\qed
+
+\underline{Remark:} $f^{-1}$ preserves stalks: that is, for all $y \in Y$, $(f^{-1}\mc{S})_y\cong \mc{S}_{f(y)}$
+
+We also have a functor going the other direction, $f_*:\Sh(Y)\to\Sh(X)$. So given $f:Y\to X$, $\mc{S} \mapsto f_*\mc{S}$. This is called the \underline{pushforward}. 
+
+Given a sheaf $\pi:\mc{S}\to Y$, we want a sheaf $\tilde{\mc{S}}$ and $\tilde{\pi}:\tilde{\mc{S}}\to X$, as well as a function $\tilde{f}:\mc{S}\to\tilde{\mc{S}}$ so that the diagram commutes:
+\[
+\begin{tikzcd}
+\mc{S}\ar[r, "\tilde{f}"] \ar[d, "\pi"] & \tilde{\mc{S}} \ar[d,"\tilde{\pi}"] \\
+Y \ar[r, "f"] & X
+\end{tikzcd}
+\]
+It is not immediately clear at all how to construct such a thing. Note that $\tilde{f}$ need not be a local homeomorphism here. 
+
+\underline{Presheaves}
+
+Let $X$ be a space. Denote by $\operatorname{Open}(X)$ the category of open subsets of $X$, with inclusions as morphisms. That is $\Hom_{U,V} = \{*\}$ if $V\subseteq U$, and $\Hom_{U,V} = \varnothing$ otherwise. 
+
+\defn
+
+A \underline{presheaf} on $X$ is defined to be a functor from 
+\[
+\mc{F}:\operatorname{Open}(X)^{op} \to \Set
+\]
+
+\underline{Concretely:}
+
+For all $U \subset X$, specify a set $\mc{F}(U)$, such that for all $V \subset U$ inclusions, there is a restriction map $r^U_V:\mc{F}(U)\to\mc{F}(V)$ such that the following properties hold: 
+\begin{itemize}
+
+\item $r^U_U = \Id_{\mc{F}(U)}$
+
+\item For $W \subseteq V \subseteq U$, we want 
+\[
+r^V_W \circ r^U_V = r^U_W
+\]
+So restricting from $U$ to $V$, and then from $V$ to $W$, is the same as just restricting straight from $U$ to $W$.
+\end{itemize}
+
+There is a category of presheaves on $X$, which we denote by $\Psh(X)$, which we can define as 
+\[
+\Psh(X) \eqdef \Fun(\operatorname{Open}(X)^{op},\Set)
+\]
+
+There is a functor $I: \Sh(X)$ to $\Psh(X)$ sending $\pi:\mc{S}\to X$ to the map sending an open $U \subseteq X$ to its set of sections, $\mc{S}(U)$.
+
+One can verify this is indeed a presheaf.
+
+\paragraph{Surprisingly:} Of more interest to us is the existence of a functor $^+:\Psh(X)\to\Sh(X)$, called the presheaf's \underline{associated sheaf}, or its \underline{sheafification}, which interacts nicely with $I$, in the sense that $^+\circ I \simeq \Id_{\Sh(X)}$, and $^+\circ^+ \simeq ^+$
+
+It takes a presheaf $\mc{F}$ and sends it to a sheaf $\mc{F}^+$. This implies that $I$ is an emebedding of categories. So passing from the \'etal\'e space to the presheaf of sections loses no information. 
+
+\subsection*{\underline{Construction of the sheafification:}}
+
+Let $\mc{F} \in \Psh(X)$. Let's first construct the set of points of an \'etal\'e space on $X$. We define the stalk of a presheaf as follows. 
+
+\paragraph{} For any $x \in X$, we define 
+\[
+\mc{F}_x\eqdef \operatorname{colim}_{U\ni x\text{ open }}\mc{F}(U)
+\]
+Note that for this to make sense we do need the functoriality of $\mc{F}$. We can define them as germs of sections in exactly the same way, where a ``section" over $U$ is just an element of $\mc{F}(U)$. 
+
+This also gives a clear morphism $\pi:\underbrace{\coprod_{x\in X}}_{\eqdef \mc{S}}\mc{F}_x\to X$.
+
+We now topologize $\mc{S}$. For a topoloical space $T$, every map $f:\mc{S}\to T$ is continuous if and only if for all $U \subseteq X$, for all $s \in \mc{F}(U)$, the composition $f\circ s:U\to T$ is continuous:
+\[
+\begin{tikzcd}
+T& \ar[l]\mc{S} \ar[d,"\pi"] \\
+U\ar[u]\ar[ur, dotted, "s"] \ar[r,hook]& X 
+\end{tikzcd}
+\]
+For any neighborhood $V$ of $x$, and $s \in \mc{F}(V)$, we have a map $s:V\to \mc{S}$ given by $y\mapsto s_y$, the image of $s$ in the colimit definition of the stalk at $y$.
+So we topologize $\mc{S}$ in the weakest way so that this is the case. Using this definition, we can check that $\pi$ is continuous. All sections $s \in \mc{F}(U)$ give rise to continuous sections of the \'etal\'e space $\mc{S}$. 
+
+\underline{Remark:} The topology on $\mc{S}$ is generated by sets of the form $s(U)$ for all $s\in \mc{F}(U)$ for all $U$ open. 
+
+One can check that $\pi$ is a \underline{local homeomorphism}. 
+
+\claim
+
+If $\pi:\mc{S}\to X$ is an \'etal\'e space then the sheafification of the presheaf of sections of $\mc{S}$ agrees with $\mc{S}$. 
+
+\proof
+
+Recall the lemma that $\pi^{-1}(x)$ can be described as a colimit. So the map $\mc{S} \to \coprod_{x\in X}\mc{S}_x$ (where the $\mc{S}$ on the left-hand side is the presheaf associated to $\mc{S}$) is a continuous bijection. 
+
+Homeomorphisms are precisely the continuous maps which are bijective and open, and one can check that this map is open by construction of the presheaf associated to $\mc{S}$. 
+
+\qed
+
+\subsection*{\underline{Pushforward}}
+
+Given a continuous map $f:Y\to X$, we have the functor $f_*:\Psh(Y)\to\Psh(X)$, given by 
+\[
+\mc{F} \mapsto \left((U\subseteq X) \mapsto (\mc{F}(f^{-1}(U))\right)
+\]
+So $f_*(\mc{F}) = F\circ f^{-1}$, where $f^{-1}$ is the functor sending $\operatorname{Open}(X) \to \operatorname{Open}(Y)$.
+
+\claim
+
+$f^*(\Sh(Y)) \subset \Sh(X)$
+
+\proof
+
+Future assignment.
+
+\qed
+
+\section*{Lecture 5, 15/9/25}
+
+\underline{Last time: presheaves and pushforwards}
+
+\underline{Today:} Sheaves $\subset$ presheaves, locally ringed spaces. 
+
+\underline{Reading assignment for this week:} Hartshorne section 2.2, up to and including example 2.3.3.
+
+\prop
+
+Let $X$ be a space, and let $\mc{F} \in \Psh(X)$ be a presheaf on $X$. 
+
+Then the canonical map $\mc{F}\to\mc{F}^+$ is an isomorphism if and only if for every open subset $U$, and every open cover $U = \bigcup_{i\in I}U_i$, the following is an \underline{equalizer}:
+\[
+\begin{tikzcd}
+\mc{F}(U) \ar[r] & \prod_{i\in I}\mc{F}(U_i) \ar[r, bend left = 20, "r^{U_i}_{U_{ij}}"]\ar[r, bend right = 20, "r^{U_j}_{U_{ij}}"'] & \prod_{(i,j) \in I^2}\mc{F}(U_{ij}) 
+\end{tikzcd}
+\]
+where $U_{ij} = U_i \cap U_j$. 
+
+\proof
+
+In a minute
+
+\qed
+
+\underline{Translation:} Given a collection of sections $s_i \in\mc{F}(U_i)$ such that for all $i,j$ we have $r^{U_i}_{U_{ij}}(s_i) = r^{U_j}_{U_{ij}}(s_j)$, then there is a unique section $s \in \mc{F}(U)$ such that $r^U_{U_{ij}} = s_i$ for all $i$. 
+
+\underline{Remark:}
+\[
+\begin{tikzcd}
+A \ar[r] & B \ar[r, bend left = 10,"f"] \ar[r, bend right = 10,"g"'] & C
+\end{tikzcd}
+\]
+
+is called an \underline{equalizer} in a category $\mc{C}$ if
+\[
+\begin{tikzcd}
+A \ar[r] \ar[d]& B \ar[d, "f\times g"]\\
+C \ar[r,"\bigtriangleup"] & C^2
+\end{tikzcd}
+\]
+is a pullback, i.e. $A \simeq C\times_{C\times C}B$. So the map from $A$ to $B$ is a universal map making $f, g$ equal in the composition. 
+
+Now for the proof of the proposition, which will require a lemma. 
+
+\lem
+
+Let $\mc{F} \in \Psh(X)$ such that $\mc{F}$ the gluing condition. Let $s_{1,2}\in\mc{F}(U)$ be local sections such that for all $x \in U$ we have
+\[
+(s_1)_x = (s_2)_x \in \mc{F}_x \eqdef \operatorname{colim}_{U\ni x}\mc{F}(U)
+\]
+
+Then $s_1 = s_2$. 
+
+\proof
+
+For all $x$ there is a neighborhood $x \in U_x \subset X$ such that $r^U_{U_x}(s_1) = r^U_{U_x}(s_2)$. Then $s_1$ and $s_2$ re glue to the local sections $s_x \eqdef r^U_{U_x}(s_1)$ or $r^U_{U_x}(s_2)$. By uniqueness, $s_1 = s_2$. 
+
+\qed
+
+Now for the proof of the proposition. 
+
+\proof
+\,
+\underline{Easier direction:}
+
+Sections of \'etal\'e spaces satisfy the gluing condition just because of their nature as functions.
+
+\underline{Harder direction:}
+
+We want to show that if the gluing condition is satisfied, then $\mc{F} \simeq \mc{F}^+$. 
+
+We have a presheaf $\mc{F}$ and \'etal\'e space $\mc{S}\to X$, the presheaf of sections $\mc{F}^+$. 
+
+Take $s \in \mc{F}^+(U)$ an arbitrary section, by definition for all $x \in U$, $s(x) \in \mc{F}_x = \mc{S}_x$. Thus there exists an open neighborhood $U_x\ni x$ and a section $s_x:U_x\to\mc{S}$ such that $s_x(x) = s(x)$. Since $\pi:\mc{S}\to X$ is a local homeomorphism, we may further shrink the neighborhood $U_x$ to ensure that $s_x|_{U_x} = s|_{U_x}$. 
+
+Now we apply the lemma to $U_x \cap U_y$ to obtain $s_x|_{U_{xy}} = s_y|_{U_{xy}}$ for all pairs of points $(x,y)$. Because $\mc{F}$ is assumed to satisfy the gluing condition, this yields the existence of a globally defined section $t \in \mc{F}(U)$ such that $t|_{U_x} = s|_x$ for all $x$. 
+
+It remains to show that $s = t$. This follows from another application of the lemma: by construction, they $s_x = t_x$ for all $x \in U$, so by the lemma, $s = t$ as a section in $\mc{F}(U)$.
+
+\qed
+
+Recall from friday the claim:
+
+\claim
+
+Let $f:Y\to X$ be continuous. Then $f_*:\Psh(Y)\to\Psh(X)$ sends $f_*(\Sh(Y)) \subset \Sh(X)$, where the inclusion means the essential image.
+
+\proof
+
+We just have to check that the pushforward $f_*\mc{F}$ also satisfies the gluing condition. 
+
+By definition
+\[
+f_*\mc{F} \eqdef \mc{F}\circ f^{-1}
+\]
+This is the composition of $f^{-1}:\operatorname{Open}(X)^{op}\to \operatorname{Open}(Y)$ and $\mc{F}:\operatorname{Open}(Y)\to\Set$.
+
+And the preimage of an open cover is an open cover.
+
+\qed
+
+\subsection*{\underline{Locally ringed spaces}}
+
+\defn
+
+Let $X$ be a space. A \underline{ring object} is an object $\mc{R}$ along with two ``binary operations," $+,\cdot :\mc{R}\times\mc{R}\to\mc{R}$, and maps (thought of as sections) $0,1:X\to\mc{R}$ (i.e. $0,1 \in \mc{R}(X)$), such that the usual ring axioms, re-expressed by commutative diagrams, hold. 
+
+Commutativity of addition:
+\[
+\begin{tikzcd}
+\mc{R}\times\mc{R}\ar[drr,"+"] \ar[rr, "swap"] & & \mc{R}\times\mc{R} \ar[d,"+"] \\
+& & \mc{R}
+\end{tikzcd}
+\]
+Existence of identity:
+\[
+\begin{tikzcd}
+\mc{R} \ar[r,"\Id_R\times c_1"] \ar[d, "\Id_R"] & \mc{R}\times\{1\} \ar[d, "\Id\times c"] \\
+\mc{R} & \ar[l,"\cdot"'] \mc{R}\times\mc{R}
+\end{tikzcd}
+\]
+
+et cetera. 
+
+\defn
+
+Let $X$ be a space. Then a \underline{ring object} $\mc{R}$ in the category $\Sh(X)$ is called a \underline{sheaf of rings} on $X$. The pair $(X,\mc{R})$ is called a \underline{ringed space}. 
+
+This is equivalent to a presheaf $\mc{R}:\operatorname{Open}(X)^{op} \to \Ring$ with the gluing condition. 
+
+\section*{Lecture 6, 17/9/25}
+
+\underline{Today:} Locally ringed spaces
+
+\underline{Last time:} Ringed spaces.
+
+Recall a ring space is a pair $(X,\mc{R})$, consisting of a topological space $X$, and a ring object $\mc{R}$ in $\Sh(X)$. 
+
+\exm
+\,
+\begin{itemize} 
+
+\item Let $X = \{*\}$. Then $\mc{R}$ is just a ring. This is because $\Sh(X)$ in that case is equivalent to $\Set$, and a ring object in $\Set$ is just a ring. 
+
+\item Take $X$ to be any space. We can define the sheaf $C(X)$ of continuous real-valued functions. So as a presheaf, $C(X)(U) = \Hom(U,\R)$. 
+
+\end{itemize}
+
+\defn Given a ring object $\mc{R}$, we define $\mc{R}^*$ as the fiber product
+\[
+\begin{tikzcd}
+\mc{R}^* \ar[r] \ar[d] & \{1\} \ar[d]\\
+\mc{R}\times\mc{R} \ar[r, "\cdot"] & \mc{R}
+\end{tikzcd}
+\]
+So $\mc{R}^* = (\mc{R}\times\mc{R})\times_{\mc{R}}\{1\}$. This is the set of pairs of elements of $\mc{R}$ which multiply to 1. The projections being injective mean that we can view it as the set of invertible elements of $\mc{R}$.
+
+\claim
+
+The projections from $\mc{R}^*$ to $\mc{R}$ are injections. That is, $\mc{R}^* \subset \mc{R}$ is a subsheaf. 
+
+So the inclusion is an open map of \'etal\'e spaces. 
+
+\defn 
+
+Given $(X,\mc{R})$, $U \subset X$ open, $f \in \mc{R}(U)$, we define $U_f$ by 
+\[
+\begin{tikzcd}
+U_f \ar[r] \ar[d] & \mc{R}^* \ar[d] \\
+U \ar[r, "f"] & \mc{R}
+\end{tikzcd}
+\]
+
+So $U_f = f^{-1}(\mc{R}^*) = \{x \in U \mid f(x) \in \mc{R}^*\}$
+
+\claim 
+
+$\mc{R}^*$ is a group object in $\Sh(X)$. 
+
+\proof
+
+Volunteer
+
+\qed
+
+\defn
+
+Let $\mc{R} \in \Sh(X)$ be a ring object. Then $\mc{R}$ is \underline{local} if for all open $U \subset X$, for all $f \in \mc{R}(U)$, we have $U = U_f \cup U_{1-f}$.
+
+This means that for every point $x \in U$, at least one of $f(x), 1 - f(x)$ are invertible. 
+
+In this case, we say that $(X,\mc{R})$ is a \underline{Locally ringed space}. 
+\exm
+\,
+\begin{itemize}
+
+\item $(X, C_X)$ is local 
+
+\item $(\{*\},\mc{R})$ is local if and only if there is a unique maximal ideal in $\mc{R}$. 
+
+\end{itemize}
+
+\lem
+
+Let $(X,\mc{R})$ be a locally ringed space, $U \subset X$ open, and $f_1, \dots, f_r \in \mc{R}(U)$. Then
+\[
+f_1 + \cdots + f_r = 1 \implies \bigcup_{i=1}^r U_f = U
+\]
+
+\proof
+
+Volunteer
+
+\qed
+
+\underline{Goal:} We want to associate to a ring $R$ a \underline{universal} locally ringed space $(X,\mc{R})$, such that  there exists a ring homomorphism
+\[
+R \to \mc{R}(X)
+\]
+with the property that, given a locally ringed space $(Y,\mc{S})$, with a homomorphism of rings $R\to \mc{S}(Y)$, we want a unique map of locally ringed spaces from $(Y,\mc{S})$ to $(X,\mc{R})$, such that ...
+
+The solution $(X,\mc{R})$ will be denoted by $(\Spec R, \mc{O})$
+
+This is the same notation used for the set of prime ideals. \underline{Why}?
+
+Assume that such a universal locally ringed space exists. 
+
+$|X|$ denotes the underlying set or space of points of a locally ringd space $(X,\mc{R})$
+
+\claim
+
+$|X|$ is in canonical bijection with the set of prime ideals of $\R$.
+\[
+|X| \cong \{\mk{p} \subset R \mid \mk{p}\text{ is prime} \}
+\]
+
+\proof
+
+To go from left to right, we take the ring $R$, and localize $R_{\mk{p}}$, meaning we invert every element in the complement of $\mk{p}$. This is by design a local ring, and we can think of this as being a locally ringed space $(\{*\}, R_{\mk{p}})$. By universality we get a map into $(X,\mc{R})$, and we consider the image of the point $\{*\}$. 
+
+To go the other way, we consider $\mc{R}_x$. This will be a local ring, and there is a map of rings frome $R \to \mc{R}_x$. $\mc{R}_x$ being a local ring means there is a unique maximal ideal $\mk{m}$. We take this maximal ideal, and take its preimage under this ring homomorphism. The preimage of a maximal ideal may not be maximal, but the preimage of a prime ideal is always prime, and maximal ideals are prime. So the preimage is prime.
+
+\qed
+
+\underline{Candidate topology} on $\Spec \mc{R}$ is the smallest topology containing $U_f = \{ \mk{p} \in \Spec R \mid f \not\in\mk{p}\}$. 
+
+This is called the Zariski topology on $|\Spec R|$. They key thing is that these subsets are always open in ringed spaces. 
+ 
+\defn[Structure Sheaf $\mc{O}$ on $|\Spec R|$]
+
+Let $\mc{O} \eqdef \coprod_{\mk{p}\in|\Spec R|}R_{\mk{p}}$, with the topology generated by the sections $\frac{g}{f^n}:U_f \to \mc{O}$ for all $\frac{g}{f^n} \in R_f$.
+
+\section*{Lecture 7, 19/9/25}
+
+First the volunteers prove the things promised last time. 
+
+\claim 
+
+Let $(X,\mc{R})$ be a locally ringed space, $U \subseteq X$ open, $f_1, \dots, f_n \in \mc{R}(U)$. Then
+\[
+\sum_{i=1}^r f_i = 1 \implies U = \bigcup_{i=1}^r U_{f_i}
+\]
+
+\proof
+
+We have a map $\mc{R}(U) \to \mc{R}_x$ by definition of a colimit. Because we are in a locally ringed space, it has a maximal ideal, $(\mc{R}_x,\mk{m}_x)$. We can (equivalently to what we said earlier) define $U_{f_i} = \{x \in X \mid \barf\not\equiv0\text{ mod } \mk{m}_x\}$. 
+
+Geometrically, this means $\{x\in U \mid \barf(x) \neq 0\}$. 
+
+By assumption, at least one of the $f_i \in \mk{m}_x$. Then $\sum_{i=1}^rf_i\in\mk{m}_x$.
+
+Thus one of the $f_i$ is a unit. By ring theory, units map to units, so every $x$ lies in a $U_{f_i}$. 
+
+\qed
+
+\claim 
+
+$\mc{R}^*$ is a group object in the category $\Sh(X)$. 
+
+\proof
+
+Recall
+
+We have the diagram 
+\[
+\begin{tikzcd}
+\ar[d] \mc{R}^* \ar[r] & \{1\} \ar[d] \\
+\mc{R}\times\mc{R} \ar[r] & \mc{R}
+\end{tikzcd}
+\]
+
+Then we have $\pi_1:\mc{R}^*\into \mc{R}$, this is injective on stalks $\mc{R}_x^* \to$ units in $\mc{R}_x$ (we are identifying $\mc{R}^*$ with its image). 
+
+So we have an injective mapping $\mc{R}^*(U) \into \mc{R}(U)^*$. This is onto since $r \in \mc{R}(U)^*$ implies $(r, r^{-1}) \in \mc{R}^*(U)$. 
+
+If $s, t \in \mc{R}^*(U_x)$, then $s_x, t_x \in \mc{R}^*_x$ for any $x \in U$, so we get $U_x \supset \{x\}$ and $s', t' \in \mc{R}(U_x)^*$, so $U = \bigcup_{x}U_x$. 
+
+So $\mc{R}(U)^*$ contains $s|_{U_x} = s_x$. 
+
+I didn't really follow this sorry, I should think more about this / ask the guy about his proof. 
+
+\qed
+
+\underline{Slogan:} If $(X,\mc{R})$, $f \in \mc{R}(U)$ is a locally ringed space, then for $x \in X$, $\barf_x \in \mc{R}_x/\mk{m}_x = \kappa(x)$ can be thought of as the value of the ``generalized function" $f$ with values $\barf_x \in \kappa(x)$ at all points $x$. 
+
+Watch out: thinking of this as a function taking values is risky, because there is a choice involved. 
+
+\underline{$\Spec R$}
+
+Let $R$ be a ring. Then we have a locally ringed space $(\Spec R, \mc{O})$
+
+\underline{Topological space:} We define $|\Spec R| = \{\mk{p} \mid \mk{p}\subset R\text{ is prime } \}$, endowed with the Zariski topology, i.e. the topology generated by open subsets $U_f \eqdef \{\mk{p} \in |\Spec R| \mid f \not\in \mk{p}\}$, for any $f \in R$. 
+
+\underline{Motivation:} Historically speaking, this is how we define the topology on $\Specmax$. 
+
+More importantly, we have this universality, since for $(X,\mc{R})$ locally ringed and $f \in \Gamma(U,\mc{R}), U_f$ is open. 
+
+\subsection*{\underline{Structure sheaf $\mc{O}$}}
+
+As a set, the \'etal\'e space, 
+\[
+\mc{O} = \coprod_{\mk{p}\in|\Spec R|} R_{\mk{p}}
+\]
+
+The \'etal\'e projection sends $R_{\mk{p}}$ to $\mk{p}$. 
+
+The topology is generated as follows. For any $\frac{g}{f^n} = s \in R_f = R[f^{-1}]$, and any point $\mk{p}$ we get a map sending $s$ to its image in $R_{\mk{p}}$ (because $f$ is not in $\mk{p}$ by def of $U_f$). The topology is generated by the images of all of these. 
+
+The topology on $\mc{O}$ is the universal one, such that a map $g:\mc{O}\to Y$ is continuous if and only if $g\circ s$ is continuous for all $f$, for all $s$ as above. 
+
+This is an \'etal\'e space by construction, such that the stalks are the local rings $R_{\mk{p}}$. That is, 
+\[
+\mc{O}_{\mk{p}} = R_{\mk{p}}
+\]
+
+are \underline{local rings}.
+
+Thus, $(|\Spec R|, \mc{O})$ is a locally ringed space, where $\mc{O}(U_f) = R_f$. The advantage over the typical definition of a sheaf is that we have only defined the sections on a subbasis, and we have to prove some things about how we can sheafify these into a sheaf. 
+
+\thm Let $X = (|X|,\mc{R})$ be a locally ringed space, and $\varphi:R\to\mc{R}(X)$ be a ring homomorphism. Then 
+\begin{enumerate}[label=(\alph*)]
+
+\item There exists a morphism of locally ringed spaces $X \to \Spec R$
+
+\item This map is universal with respect to this property. 
+
+\end{enumerate}
+
+\proof
+
+Next time
+
+\qed
+
+\defn
+
+A \underline{morphism of locally ringed spaces} $f:Y\to X$ is a continuous map $|f|:|Y|\to|X|$, along with a morphism of sheaves of rings (a morphism of ring objects in $\Sh(X)$) $f^\sharp: f^{-1}(\mc{R}_X)\to\mc{R}_Y$ such that for all $y \in Y$, the map between stalks 
+\[
+\mc{R}_{X,|f|(y)}\to\mc{R}_{Y,y}
+\]
+is a \underline{local ring map}, i.e. $(f^\sharp_y)^{-1}(\mk{m}_y)= \mk{m}_{|f|(y)}$
+
+\section*{Lecture 8, 22/9/25}
+
+\underline{Today:} Prove the universal property of $\Spec R$, global sections on $\Spec R$ of the structure sheaf $\mc{O}$, (affine) schemes. 
+
+\underline{Recall:} Given a ring $R$, there exists a topological space $|\Spec R|$, whose points are the prime ideals of $R$, and endowed with the Zariski topology, whose opens are generated by sets of the form $D_f = \{\mk{p} \in \Spec R \mid f \not\in \mk{p}\}$
+
+\underline{Reading assignment:} Finish 2.2 in Hartshorne by the end of this week. 
+
+\paragraph{}
+
+On the space $|\Spec R|$, we have the structure sheaf $\mc{O}_R$, constructed by putting a topology on $\coprod_{\mk{p}\in|\Spec R|}R_{\mk{p}}$,  generated as follows:
+
+For every $s \in R_f$, we have a function from $D(f)$ to $\mc{O}_R$ given by sending a prime ideal $\mk{p}$ to the image of $s$ in $R_{\mk{p}}$, and by construction this is both well defined and a section of the map $\mc{O}_R\to |\Spec R|$. 
+
+We want the coarses topology making these maps continuous. 
+
+We refer to the pair $(|\Spec R|, \mc{O}_R)$ by simply $\Spec R$. 
+
+\lem
+
+Let $X = (|X|, \mc{O}_X)$ be a locally ringed space and $\varphi:R\to\mc{O}_X(|X|)$ a ring homomorphism. Then the following map $\Phi$ from $|X|$ to $|\Spec R|$, given by $x\mapsto \varphi^{-1}(\mk{m}_x) \in |\Spec R|$ is continuous. 
+
+\proof
+
+\underline{Remark:} For all $x \in |X|$, we have a local ring $(\mc{O}_X)_x$, which contains a unique maximal ideal, which we denote by $\mk{m}_x$ (or $\mk{m}_{X,x}$), and a ring homomorphism $\varphi:R\to\mc{O}_{X,x}$, which we can pull back to get a prime ideal in $R$ (this map is defined because the original map $\varphi$ goes to $\mc{O}_X(|X|)$, which is a set of sections, and each of those sections has an image in $\mc{O}_{X,x}$). Now for the proof:
+\paragraph{}
+By definition, it suffices to check, for all $f \in R$, that $\Phi^{-1}\left(D(f)\right) \subset |X|$ is \underline{open} in $|X|$. 
+
+\claim
+\[
+\Phi^{-1}\left(D(f)\right) = |X|_{\varphi(f)} = \{x \in X \mid \varphi(f)_x \in \mc{O}_{X,x}^\times = \mc{O}_{X,x}\setminus\mk{m}_x\}
+\]
+\proof
+
+By definition of $\Phi$, we have ring homomorphisms 
+\[
+\begin{tikzcd}
+R \ar[r,"\phi"] \ar[dr,"q"] & \mc{O}_{X,x} \\
+& R_{\mk{p}} = \Phi(x) \ar[u, "\exists!", dotted] 
+\end{tikzcd}
+\]
+
+This is a local ring at $\mk{p}$, and it detects and reflects invertibility. 
+
+So $\Phi^{-1}\left(D(f)\right) = |X|_{\varphi(f)}$
+
+\qed
+
+\lem
+
+$\Phi$ can be promoted to a morphism of locally ringed spaces: $X\to \Spec R$.
+
+\proof
+
+We need to build a map of sheaves of rings $\Phi^{-1}\mc{O}_R \to \mc{O}_X$
+
+We will do this stalk by stalk: For 
+\[
+\begin{tikzcd}
+\coprod_{x\in|X|}R_{\mk{p} = \Phi(x)} \ar[d] \ar[r,"\varphi_x"] & \coprod \mc{O}_{X,x} \ar[d]\\
+X & X \\
+\end{tikzcd}
+\]
+Where the top right is the topology given by using the sheafification viewing it as a presheaf of sections. 
+
+We have the map $\varphi_x:R_{\mk{p}}\to \mc{O}_{X,x}$, $\mk{p} = \varphi^{-1}(\mk{m}_x)$ is a local ring map, so $(\Phi, (\varphi_x)_{x\in X})$ is a local ring map, granting continuity of $\to$. 
+
+This uses the definition of the topology on the \'etal\'e space of $\mc{O}_R$. 
+
+\qed
+
+\lem 
+
+Given $(|X|, \mc{O}_X), (|Y|,\mc{O}_Y)$ with ring homomorphisms $\varphi:R \to \mc{O}_X(|X|), \psi:R \to \mc{O}_Y(|Y|)$ and a morphism of locally ringed spaces $g:Y\to X$ which is compatible with $\varphi$ and $\psi$, then there is a commutative diagram in the category of locally ringed spaces
+\[
+\begin{tikzcd}
+Y \ar[r,"\Psi"] \ar[dr, "g"'] & \Spec R \\
+& X \ar[u, "\Phi"']
+\end{tikzcd}
+\]
+where $\Psi, \Phi$ are the maps induced by $\psi, \varphi$, as in the previous lemma. 
+
+\proof
+
+\qed
+
+This construction yields a functor $\Spec:\Ring^{op} \to \operatorname{LocRingdSp}$
+
+\thm
+
+The functor $\Spec$ is an embedding and a (quasi)-inverse (on the essential image of $\Spec$) is given by taking global sections $\Gamma(\mc{O}):\operatorname{LocRingdSp}^{op}\to\Ring$, $(|X|,\mc{O}_X) \mapsto \mc{O}_X(|X|)$.
+
+\proof
+
+In class presentation. 
+
+\qed
+
+The key lemma is the following:
+
+\lem
+
+$\mc{O}_R(|\Spec R|) \cong R$
+
+\proof
+
+In class presentation
+
+\qed
+
+With all this, the following definitions finally make sense:
+\,
+\defn
+\,
+\begin{enumerate}
+
+\item A locally ringed space $X$, isomorphic to $\Spec R$ for some $R$, is called an \underline{affine scheme}
+
+\item A \underline{scheme} is a locally ringed space $X = (|X|, \mc{O}_X)$ such that there exists an open cover $\bigcup|U_i| = |X|$, such that for all $i$, we have that $U_i = (|U_i|, \mc{O}_X|_{U_i})$ is an \underline{affine scheme}.
+
+\end{enumerate}
+
+\underline{Analogy:} 
+
+Recall that a smooth manifold is a topological space with certain properties (2nd countable, hausdorff) with a set of smooth charts. If we forget the desired topological spaces, then this category also embeds into the category of locally ringed spaces, with the functor given by sending $M = (|M|, \mc{C}^\oo_M)$, where $\mc{U}$ is a (maximal) atlas to $(|M|, \mc{O}_M)$, where $\mc{O}_M(U)$ is the set of $\R$-valued smooth functions on $U$. 
+
+So $(|M|,\mc{C}^\oo_M)$ is covered by sets that look like $(\R^n, \mc{C}^\oo_{\R^n})$
+
+\section*{Lecture 9, 24/9/25}
+
+\underline{Summary:} An object of $\operatorname{LocRingdSpc}$ is a pair $(|X|,\mc{O}) = X$, with $|X|$ a space, $\mc{O}$ a ring object in $\Sh(|X|)$ which is \underline{local}, which means that for any $u$, and any section $s \in \mc{O}(U)$, $U_s \cup U_{1-s} = U$, where $U_s$ is defined by the fiber product
+\[
+\begin{tikzcd}
+U_s \ar[r] \ar[d] & \mc{O}^* \ar[d]\\
+U \ar[r,"s"] & \mc{O}
+\end{tikzcd}
+\]
+Equivalently, $U_s = \{x\in U \mid s(x) \in \mc{O}^*\}$.
+So, given any two sections $s, t$ with $s + t = 1$, their loci of invertibility cover $U$, in analogy with the weak nullstellensatz. This implies that all stalks are local rings, that is $\mc{O}_x$ has a unique maximal ideal, $\mk{m}_x$.
+
+\underline{Last time:} We have a bijection 
+\[
+\Hom_{\LRS}(X,\Spec R) = \Hom_{\Ring}(R,\underbrace{\mc{O}_X(|X|)}_{\text{ring of generalized functions on $X$}})
+\]
+
+\underline{Stated:} $\Gamma(|\Spec R|,\mc{O}_R) \cong R$
+
+(to be shown on friday)
+
+\underline{Today:} Examples of schemes
+
+\underline{Affine Line:} $\mbb{A}_{\Z}^n \eqdef \Spec \Z[T_1,\dots, T_n]$
+
+\cor 
+
+$\mc{O}_X(|X|) = \Hom_{\LRS}(X, \mbb{A}^n_\Z)$
+
+\proof
+\,
+
+Consider $\varphi \in \Hom_{\Ring}(\Z[T], \mc{O}_X(|X|))$, and map it to $\varphi(T) \in \mc{O}_X(|X|)$.
+
+So by the theorem stated above, then $\mc{O}_X(|X|) = \Hom(X,\mbb{A}_\Z^n)$
+
+So generalized functions on $X$ are in 1-1 correspondence with morphisms $X \to \mbb{A}_\Z^n$
+
+\qed
+
+\underline{Remark:} $\mbb{A}_\Z^1$ is a \underline{ring object} in $\LRS$. This is very deep, but also tautological. Abstract nonsense...
+
+
+\defn
+
+$\mbb{G}_{m,\Z} \eqdef \Spec \Z[T,T^{-1}]$, often called the \underline{multiplicative group (scheme)}. 
+
+\cor
+
+$\Hom(X,\mbb{G}_{m,\Z} = \mc{O}_X(|X|)^*$. 
+
+\defn
+
+$\GL_{n,\Z} = \Spec \Z[T_{11},\dots,T_{nn}, \det\left((T_{ij})\right)^{-1}]$
+
+\cor
+
+$\Hom(X,\GL_{n,\Z}) = \{A = (s_{ij})_{i,j = n}\mid \det A$ multiple of $s_{ij} \in \mc{O}_X(|X|)\}$ (???)
+
+\proof
+
+\qed
+
+\underline{Remark:} $\mbb{G}_{m,\Z}, \GL_{n,\Z}$ are \underline{group objects} in $\LRS$.
+
+\subsection*{\underline{Fiber Products I}}
+
+\lem
+
+Suppose we have ring homomorphisms
+\[
+\begin{tikzcd}
+B\ar[r] \ar[d] & C \\
+A & 
+\end{tikzcd}
+\]
+Then $\Spec(A\otimes_BC)$ is the fiber product $\Spec A\times_{\Spec B}\Spec C$ in $\LRS$.
+
+\proof
+
+Consider the set of maps $\{A\otimes_BC \to \mc{O}_X(|X|)\}$, whic h we identify with $\Hom(X,\Spec (A\otimes_BC))$. But the first is equal to the fiber product
+\[
+\begin{tikzcd}
+B \ar[r] \ar[d] & C \ar[d, "\psi"] \\
+A \ar[r, "\varphi"] & \mc{O}_X(|X|)
+\end{tikzcd}
+\]
+, where we send $a\otimes c$ to $\varphi(a)\cdot\psi(b)$. But by the same property this is the same as the coproduct 
+\[
+\begin{tikzcd}
+X \ar[r] \ar[d] & \Spec C\ar[d] \\
+\Spec A \ar[r] &\Spec B
+\end{tikzcd}
+\]
+So this is establishes the universal property, 
+\[
+\begin{tikzcd}
+X \ar[drr, bend left = 20] \ar[ddr, bend right = 20] \ar[dr,dotted,"\exists!"] & & \\
+& \Spec (A\otimes_BC) \ar[r] \ar[d] & \Spec C \\
+& \Spec A \ar[r] & \Spec B
+\end{tikzcd}
+\]
+\qed
+
+\underline{Remark:}
+
+We have the correspondence between
+\[
+\begin{tikzcd}
+X \ar[r] \ar[dr] & \Spec A \ar[d] \\
+& \Spec B
+\end{tikzcd}
+\]
+and
+\[
+\begin{tikzcd}
+A \ar[r] & \mc{O}_X(|X|) \\
+B \ar[u]\ar[ur] &
+\end{tikzcd}
+\]
+
+\underline{Concrete examples}
+
+\begin{enumerate}
+
+\item $\varnothing = \bigcup \varnothing$, and it is a scheme, because $\varnothing = \Spec 0$, which is an affine scheme.
+
+\item Let $k$ be a field. Then $|\Spec k| = \{*\}$, the zero ideal in $k$. Then $\Spec k = (\{*\}, k)$, a point with a field attached to it. 
+
+\item $\Spec k[\varepsilon]/(\varepsilon^2)$ 
+
+\item The spectrum of any artinian local ring. In this and the above case, the set of prime ideals is a single point. 
+\underline{Cor:} 
+
+Take $R = \Z[S,T]/(S^2 - T^2 - 1)$, and $X = \Spec R$. Then
+\[
+\Hom(\Spec \R, X) = \{(x,y) \in \R^2 \mid x^2 + y^2 = 1\}
+\]
+and
+\[
+\Hom(\Spec\R[\varepsilon]/(\varepsilon^2), X) = \{(z,v) \in \R^2\times \R^2 \mid z \in S^1, v \perp z\} = TS^1
+\]
+
+More generally, 
+\[
+\Hom(\Spec k, X) = k\text{-solutions to a system of equations}
+\]
+\[
+\Hom(\Spec k[\varepsilon]/(\varepsilon^2), X) = k\text{-tangent vectors at $k$-points of a variety}
+\]
+
+\item $\Spec\Z$ is final in $\LRS$, i.e. for all $X$, there is a unique map $X \to \Spec \Z$, because such a map corresponds to a ring homomorphism $\Z \to \mc{O}_X(|X|)$, and $\Z$ is initial in $\Ring$ (because $1$ must be sent to $1$). 
+
+Observe $|\Spec \Z| = \{(0)\} \cup \{\text{prime numbers}\}$, with topology generated by $U_n = \{(0), p \mid p\nmid n\}$, $n \in \Z$. All non-empty opens contain $(0)$. So $U_n\setminus\{(0)\} = \mbb{P}\setminus(\text{finite subset})$. So it is basically the cofinite topology, except there is an additional point in every open subset. So $\bar{(O)} = |\Spec\Z|$. We will refer to such points as \underline{generic points}. 
+
+If we consider $\mc{O}_\Z(|\Spec\Z|) = \Z$, then $\mc{O}_{\Z,p} = \Z[q^{-1} \mid q \neq p]$, and $\mc{O}_{\Z,(0)} = \Z_{(0)} = \Q$. 
+
+To see this, consider $s \in \Gamma(|\Spec \Z|)$. This is Zariski locally represented by a fraction $s_i \in U_{d_i}, s_i = \frac{n_i}{d_i}$. Then by locality $\cup_i U_{d_i} = |\Spec \Z|$ is equivalent to $\gcd(d_i) = 1$. Since $\gcd(d_i) = 1$ and $\frac{n_i}{d_i} = \frac{n_j}{d_j}$ for each $i, j$, this implies $\frac{n_i}{d_i} = \lambda\in\Z$. This works in any $PID$. 
+
+\end{enumerate}
+
+\section*{10, 26/9/25}
+
+\underline{Presentation: Kareem}
+
+Facts to take for granted: $V(I) = \{p \in |\Spec R\ \mid I \subseteq p\}$, $D(f)^c = V\left((f)\right)$, $V(I) = V(\sqrt{I}) \subset V(J) \subset V(\sqrt{j})$ iff $\sqrt{I} \supset \sqrt{j}$
+
+$\bigcap V(I) = V(\sum I)$. 
+
+\claim
+
+$\varphi: R_f \to \mc{O}(D(f))$ is an isomorphism, with the map sending $\frac{a}{f^n}$ to $s(\mk{p}) = \frac{a}{f^n}$ in $V_\mk{p}$. 
+
+\proof
+
+Kareem went too fast. Sorry
+
+\qed
+
+\underline{Fact:} $|\Spec R|$ is always quasi-compact, no matter the ring, so the underlying space of an affine scheme is always quasi-compact. 
+
+So for any family of non-zero $R_i$, $\sqcup_{n\in\Z}|\Spec R_n|$ is a non-affine scheme. It is not affine because the underlying space is not quasicompact. 
+
+\underline{Remark:} It is true that if you take the finite product of rings, then 
+\[
+\Spec \left(\prod_{i=1}^r R_i\right) = \sqcup_{i=1}^r \Spec R_i
+\]
+But this is not true for infinite products, because $\Spec\left(\prod_{i\in I} R_i\right)$ is quasicompact. 
+
+Contemplate $|\Spec \mbb{F}_2^\N|$.
+
+\subsection*{\underline{Criterion for affine-ness}}
+
+Let $X = (|X|,\mc{O})$ be a locally ringed space. Then there is a unique homomorphism to an affine scheme $\aff_X:X \to \Spec \O(|X|)$ called the \underline{affinization of $X$}, denoted $\operatorname{aff}_X$
+
+\underline{And:}
+
+$X$ is affine if and only if $\aff_X$ is an isomorphism of locally ringed spaces. 
+
+\underline{$\mbb{A}_\Z^n$ with a doubled origin}
+
+\underline{Recall:} $\mbb{A}_\Z^1  \eqdef \Spec \Z[T]$. This contains $D(T) = |\Spec \Z[T,T^{-1}]| = |\mbb{G}_{m,\Z}|$. 
+
+\defn
+
+We denote by 
+\[
+\mbb{A}_{\Z,double-O}^1 \eqdef \mbb{A}_\Z^1 \sqcup_{\mbb{G}_{m,\Z}} \mbb{A}_\Z^1
+\]
+This pushout still exists in the category of locally ringed spaces, so this definition makes sense. Indeed, the underlying topological space is this pushout. 
+
+We define the structure sheaf to be the unique $\O$ such that $\O|_{\mbb{A}_\Z^1} = \O_{\mbb{A}_\Z^1}$, where those are the two copies of $\mbb{A}_{\Z}^1$. 
+
+By construction, $X$ is a scheme, because it can be covered by two affine scheme. 
+
+\claim
+
+$X$ is not affine. 
+
+\proof
+\,
+\begin{enumerate}
+
+\item First, consider the equalizer of the following diagram:
+\[
+\begin{tikzcd}
+\O_X(|X|) \ar[r]& \O_{\mbb{A}^n}(\mbb{A}^n) \oplus \O(\mbb{A}^n) \ar[r, bend left = 20] \ar[r, bend right = 20]& \O(\mbb{G}_m)
+\end{tikzcd}
+\]
+Where the top map is $T_1 \mapsto T$, and the bottom $T_2 \mapsto T$, where $T_i$ are the two copies of $T$. Recall $\O_X(|X|) = \Z[T]$, so this diagram reads 
+\[
+\begin{tikzcd}
+\Z[T] \ar[r] & \Z[T_1] \oplus \Z[T_2] \ar[r, "T_1\mapsto T", bend left = 20] \ar[r, "T_2 \mapsto T", bend right = 20] & \Z[T, T^{-1}]
+\end{tikzcd}
+\]
+But $\aff_X:X\to \mbb{A}_\Z^1$ on $|\mbb{G}_{m,\Z}|$ $\aff_X|_{\mbb{G}_m}$ is not an iso. Indeed, 
+\[
+|\aff_X^{-1}(\mk{m}_0)| = 2
+\]
+Because $\aff_X^{-1}(|\mbb{G}|) = |\mbb{G}|$, so $|X\setminus \aff_X^{-1}(|\mbb{G}|)| = 2$, thus $|\aff_X|$ is not injective, so $\aff_X$ cannot be an isomorphism of locally ringed spaces. 
+\end{enumerate}
+
+\qed
+
+\underline{Another example:} $\mbb{P}_\Z^1$. 
+
+Consider again the pushout of spaces 
+\[
+\begin{tikzcd}
+\mbb{G}_{m,\Z} \ar[r, hook] \ar[d, hook] & \mbb{A}_-^n \ar[d]\\
+\mbb{A}_+^1\ar[r, hook] & \mbb{P}_\Z^1
+\end{tikzcd}
+\]
+Where $\mbb{A}_\pm^1 = \Spec \Z[T^\pm]$, and of course $\mbb{G}_{m,\Z} = \Spec \Z[T,T^{-1}]$. 
+
+We define this by first taking the pushout of topological spaces to the topological space, and then glue the structure sheaves together on $|\mbb{A}_+^1|,|\mbb{A}_-^1|$ accordingly. We call this $\O_{\mbb{P}^1_\Z}$. This is by construction covered by two affine schemes and thus a scheme. 
+
+To comput $\O_{\mbb{P}_\Z^1}(|\mbb{P}_\Z^1|)$, we look at another equalizer
+\[
+\begin{tikzcd}
+\O_{\mbb{P}_\Z^1}(|\mbb{P}_\Z^1|) \ar[r] &\mc{O}_{\mbb{A}_+^1}(|\mbb{A}_+^1|) \oplus \O_{\mbb{A}_-^1}(|\mbb{A}_-^1|) \ar[r, bend left = 20] \ar[r, bend right = 20] &\Gamma(\O_{\mbb{P}_\Z^1})
+\end{tikzcd}
+\]
+Agai, this diagram reads 
+\[
+\begin{tikzcd}
+\Z[T] \cap \Z[T^{-1}] \ar[r] & \Z[T] \oplus \Z[T^{-1}] \ar[r, bend left = 20], \ar[r, bend right = 20] & \Z[T,T^{-1}]
+\end{tikzcd}
+\]
+
+So $\aff_{\mbb{P}_\Z^1}:\mbb{P}_\Z^1 \to \Spec \Z$, but $|\mbb{P}_\Z^1| \supset |\mbb{A}_\Z^1| $ is sent to $|\Spec \Z|$, so $\aff$ cannot be an isomorphism here. 
+
+\section*{Lecture 11, 29/9/25}
+
+\underline{Reading assignment:} Section 2.3 (start with definition of an open subscheme).
+
+\underline{Next quiz:} Friday
+
+\underline{Today:} 
+\begin{itemize}
+
+\item Open immersions
+
+\item Fibre products
+
+\end{itemize}
+
+\defn
+
+A morphism of locally ringed spaces $(|f|, f_*) = f:Y\to X$ is called an \underline{open immersion} if 
+\begin{itemize}
+
+\item $|f|:|Y|\to|X|$ is \underline{open} and \underline{injective}
+
+\item $f_*:f^{-1}\O_x \to \mc{O}_Y$ is an \underline{isomorphism} of sheaves
+
+\end{itemize}
+
+\defn
+
+Let $X$ be a locally ringed space, $|U|\subseteq |X|$ an open subset. Then we define 
+\[
+U \eqdef (|U|, \O_X|_{|U|})
+\]
+
+This is also a locally ringed space, and the map $\iota:U\into X$ (given by the inclusion, and the ring isomorphism $\iota_*:\O_X|_{|U|} \to \O_U$) is an \underline{open immersion}
+
+\underline{Fact:}
+
+For an open immersion $f:Y\to X$, there exists an open subset $|U|\subset |X|$ such that there is a commutative diagram
+\[
+\begin{tikzcd}
+Y \ar[dr, "f"] & \\
+& X \\
+U \ar[uu, "\simeq"] \ar[ur, "\iota_U"'] &
+\end{tikzcd}
+\]
+
+\underline{Remark:} A morphism of locally ringed spaces $f:Y\to X$ which is open and injective is an open immersion if and only if for all $y \in Y$, the map $\O_{Y,y} \to \O_{X,f(y)}$ is an \underline{isomorphism}
+
+\defn
+
+If $X$ is a scheme and $|U|\subset |X|$ is open, then $U$ is called an \underline{open subscheme} of $X$. 
+
+\lem
+
+$U = (|U|, \O_X|_U)$ is a scheme if $X$ is a scheme. 
+
+\proof
+
+It suffices to show this for $X = \Spec R$. 
+
+Let $|U| \subset |\Spec R|$ be open. Then $|U| = \bigcup_{\alpha\in A} D(f_\alpha)$. Note $D(f_\alpha) = |\Spec R_{f_\alpha}|$.
+
+So $U$ is covered by the affine schemes $\Spec R_{f_\alpha}$
+
+\qed
+
+\underline{Warning:} $U$ is not necessarily affine. 
+
+\exm
+
+Recall $\mbb{A}_\Z^2 = \Spec\Z[S,T]$. Consider $|U| = D(S) \cup D(T)$
+
+Note $|U| \neq |\mbb{A}_\Z^2|$, and in fact the complement $|\mbb{A}_\Z^2|\setminus|U|$ is generated by $V\left((S,T)\right) = |\Spec \Z|$. Then
+\[
+\Z[S,T] = \O_U(|U|) = \O_{D(S)}(D(S)) \cap \O_{D(T)}(D(T)) = \Z[S,T]_S \cap \Z[S,T]_T
+\]
+
+So $\aff_U:U\to \mbb{A}_\Z^2$ (given by $\iota)$ is not surjective. So $U$ is non-affine.
+
+\lem
+
+Let 
+\[
+\begin{tikzcd}
+& Z \ar[d, "g"] \\
+X \ar[r, "f"] & Y \\
+\end{tikzcd}
+\]
+be a diagram of locally ringed spaces, with $f$ and \underline{open immersion}. 
+
+Then $X\times_YZ$ exists, and the morphism $f':X\times_YZ\to Z$ given by projection onto the second coordinate is an \underline{open immersion}
+
+So we can lift open immersions
+
+\proof
+
+Consider $\left(\underbrace{ g^{-1}(f(|X|)}_{|U|}),\O_Z|_{|U|}\right)$, and show that it has the required properties and satisfies the universal property of the fiber product. 
+
+First, $(g^{-1}(|U|), \O_Z|_{g^{-1}(|U|)}) \to (|Z|,\O_Z)$ given by the inclusion of $|g^{-1}(U)|$ is an open immersion. 
+
+Let $W \in \LRS$. Then consider the diagram
+\[
+\begin{tikzcd}
+W \ar[drr, bend left = 20] \ar[ddr, bend right = 20] \ar[dr,"\exists!", dotted] & & \\
+& g^{-1}(|U|, \O_Z|_{g^{-1}(|U|)})\ar[d] \ar[r] & Z \ar[d,"g"']\\
+& U \ar[r, "f"] & Y
+\end{tikzcd}
+\]
+
+The dotted map exists and is unique just on the level of continuous maps automatically, $h:W\to Z$ corresponds to $h^{-1}\O_Z \to \O_W$, where $\O_Z = h^{-1}(\O_Z|_{g^{-1}(|U|)})$, recalling that $f$ is an open immersion. 
+
+\qed
+
+\exm
+
+For $U, V \subset X$ are subschemes, then for the cartesian diagram
+\[
+\begin{tikzcd}
+U\cap V \ar[r, hook] \ar[d, hook] & V \ar[d, hook] \\
+U \ar[r, hook] & X
+\end{tikzcd}
+\]
+We haved $U\cap V = U\times_XV$
+
+\underline{Pushouts along open immersions}
+
+\lem
+
+Let 
+\[
+\begin{tikzcd}
+X \ar[r,"f"] \ar[d,"g"'] & Y \\
+Z & 
+\end{tikzcd}
+\]
+be a diagram of schemes and open immersions. Then the pushout $X \sqcup_Y Z$ exists in the category of schemes. 
+
+\proof
+
+Define $|Y\sqcup_XZ|$ by taking the pushout in the category of topological spaces, i.e. $\frac{|Y|\sqcup|Z|}{\sim}$, where $\sim$ identifies $f(x)$ and $g(x)$ for all $x \in |X|$. 
+
+\underline{Topology:} $U \subset |Y| \sqcup_{|X|}|Z|$ is open if and only if $U \cap |Y|$ and $U \cap |Z|$ are open. 
+
+Glue the \'etal\'e spaces of $\O_Y,\O_Z$ along $\O_X$ the same way. 
+
+This shows its a locally ringed space because the stalks are local rings, and is also covered by affine schemes. 
+
+\qed
+
+\lem
+
+Assume that in the diagram below, both inner squares are \underline{Cartesian} (meaning fibre products).
+\[
+\begin{tikzcd}
+W' \ar[d] \ar[r] \ar[dr,phantom]& W \ar[d] \ar[r] & Z \ar[d]\\
+X'\ar[r] & X \ar[r] & Y 
+\end{tikzcd}
+\]
+Then the outer square is Cartesian.
+
+\proof
+
+Volunteer
+
+\qed
+
+\subsection*{\underline{Fibre products part 2}}
+
+\prop
+
+Let 
+\[
+\begin{tikzcd}
+& Z \ar[d, "g"'] \\
+X \ar[r, "f"] & Y
+\end{tikzcd}
+\]
+be a diagram of schemes. Then the fibre product $X\times_YZ$ exists in $\LRS$ and is a scheme.
+
+\proof
+
+\underline{Recall:} This is true if $X, Y, Z$ are affine by the universal property of $\Spec$. 
+
+\underline{Sketch of proof:}\,
+\begin{enumerate}
+
+\item Choose open covers $(U_\alpha),(V_\alpha),(W_\alpha)$ of $X, Y, Z$ by affine schemes, so that $f:U_\alpha\to V_\alpha$ and $g:W_\alpha\to V_\alpha$ via restriction, i.e. $|f|(|U_\alpha|) \subset |V_\alpha| \supset g(|W_\alpha|)$
+
+\item Glue $U_\alpha\times_{V_\alpha}W_\alpha$ to a scheme we can call $X\times_YZ$ 
+
+\item Prove it satisfies the universal property. 
+
+\end{enumerate}
+
+\section*{Lecture 12, 1/10/25}
+
+\underline{Recall:} Cartesian Squares $=$ fibre product squares. 
+
+
+Cartesian squares can be juxtaposed as in the previous lemma.
+
+Test on friday (next lecture) 
+
+We have shown that fibre prodcuts along open immersions exist, and are open immersions (I denote open immersions by $\into$ when the diagram is in the category of schemes/locally ringed spaces). 
+
+In particular, they exist in the category of schemes. 
+
+\lem
+
+Let 
+\[
+\begin{tikzcd}
+& Z \ar[d] \\
+X \ar[r] & Y 
+\end{tikzcd}
+\]
+be a diagram in a category $\mc{C}$ and $Y'\to Y$ be a morphism. Assume that the fibre products $X'= X\times_Y Y $ and $Z' = Z\times_YY'$ exist, and that $X\times_YZ$ and $X'\times_{Y'}Z'$ exist. Then
+\[
+X'\times_{Y'}Z' \cong (X\times_YZ)\times_YY'
+\]
+As an exercise, complete this cube (imagine the things on the right are ``folded" up)
+\[
+\begin{tikzcd}
+X' \ar[r] \ar[d] & Y' \ar[d] & Z'\ar[d]\ar[l] \\
+X \ar[r] & Y  & Z \ar[l]
+\end{tikzcd}
+\]
+
+\lem
+
+Let $W, F \in \LRS$. Then the following presheaf, $\Hom(-,F):\operatorname{Open}(|W|)^{op}\to\Set$ is a sheaf $|U|\mapsto\Hom_{\LRS}(U,W)$, as in the commutative diagram
+\[
+\begin{tikzcd}
+\operatorname{Open}(|W|)^{op} \ar[rr] \ar[dr] & & \Set \\
+& \LRS^{op} \ar[ur,"Hom"] & \\
+\end{tikzcd}
+\]
+Where ``$Hom$" means $\Hom(-,F)$ (tikzcd freaks out if there are parens for some reason :( ) 
+
+\proof
+
+Volunteer. 
+
+\qed
+
+Here is the main lemma of today:
+
+\lem
+
+Let
+\[
+\begin{tikzcd}
+& Y \ar[d, "g"] \\
+X \ar[r, "f"] & Y
+\end{tikzcd}
+\]
+be a diagram of schemes. Assume that each scheme has an open cover $X = X_1 \cup X_2, Y = Y_1\cup Y_2, Z = Z_1 \cup Z_2$, such that $f(|X_i|) \subset |Y_i| \supset g(|Z_i|)$, and $X_i \subset X, Y_i \subset Y, Z_i \subset Z$ are open subschemes for $i \in \{1,2\}$. 
+
+If $X_i\times_{Y_i}Z_i$ exists and is a scheme for each $i$ then $X\times_YZ$ exists and is a scheme. 
+
+\proof
+
+At first we need the following.
+
+\claim
+
+$X_{12}\times_{Y_{12}}Z_{12}$ exists and is a scheme, where $X_{12} = X_1\cap X_2$, and similarly for $Y_{12},Z_{12}$. 
+\proof
+Consider the fibre product
+\[
+\begin{tikzcd}
+X_1\times_{Y_1}Z_1 \ar[d]\ar[r] & Z_1\ar[d] \\
+X_1 \ar[r] & Y_1
+\end{tikzcd}
+\]
+By the lemma we can take the fibre product 
+\[
+\begin{tikzcd}
+\ar[d]X_{12}\times_{Y_1}Z_1 \ar[r, hook] & X_1\times_{Y_1}Z_1 \ar[d]\ar[r] & Z_1\ar[d] \\
+X_{12} \ar[r, hook] & X_1 \ar[r] & Y_1
+\end{tikzcd}
+\]
+Then we can extend this to the diagram (all $4$ squares are Cartesian)
+\[
+\begin{tikzcd}
+X_{12}\times_{Y_1}Z_{12} \ar[d] \ar[r] & X_1\times_{Y_1}Z_{12} \ar[d, hook] \ar[r] & Z_{12} \ar[d, hook] \\
+\ar[d]X_{12}\times_{Y_1}Z_1 \ar[r, hook] & X_1\times_{Y_1}Z_1 \ar[d]\ar[r] & Z_1\ar[d] \\
+X_{12} \ar[r, hook] & X_1 \ar[r] & Y_1
+\end{tikzcd}
+\]
+
+Then by the other lemma
+\[
+(X_{12}\times_{Y_{1}}Z_{12}) \times_{Y_1}Y_{12} \cong X_{12}\times_{Y_{12}}Z_{12}
+\]
+
+\qed
+
+Now: Pushout of 
+\[
+\begin{tikzcd}
+X_{12}\times_{Y_{12}}Z_{12} \ar[r, hook] \ar[d, hook] & X_2\times_{Y_2}Z_2\ar[d, hook] \\
+X_1\times_{Y_1}Z_1 \ar[r, hook] & X\times_YZ = P
+\end{tikzcd}
+\]
+\claim
+
+$P$ satisfies the universal product of the fibre product. 
+
+\proof
+
+This follows from the sheaf property: use the lemma for an arbitrary $W$, letting $F = P$. 
+
+Sketch:
+
+Take the diagram
+\[
+\begin{tikzcd}
+W \ar[drr, bend left = 20, "\beta"] \ar[ddr, bend right = 20, "\alpha"]\ar[dr, dotted, "\exists!"] \\
+& P \ar[r] \ar[d] & Z \ar[d] \\
+& X \ar[r] & Y 
+\end{tikzcd}
+\]
+Apply sheaf property to an appropriate open cover $W = \cup_{i\in I}U_i$ such that $\alpha(U_i) \subset X_1\cup X_2$ and similarly for $\beta$ and $Y_1\cup Y_2$. 
+
+\qed
+
+This proves the main lemma
+
+\qed
+
+\thm
+
+Let 
+\[
+\begin{tikzcd}
+& Z \ar[d] \\
+X \ar[r] & Y \\
+\end{tikzcd}
+\]
+be a diagram of schemes. Then $X\times_YZ \in \LRS$ exists and is a scheme. 
+
+\proof
+
+Let $\mc{S}$ be the partially ordered set of open subdiagrams
+\[
+\begin{tikzcd}
+& W \ar[dr, phantom, "\subset"] \ar[d] & \\
+U \ar[r] \ar[dr, phantom, "\subset"] & V \ar[dr, phantom, "\subset"] & Z \ar[d] \\
+& X \ar[r] & Y
+\end{tikzcd}
+\]
+
+Then the fibre product $U\times_VW$ exists and is a scheme: 
+
+\[
+\begin{tikzcd}
+U\times_VW \ar[r] \ar[dr,phantom,"\ulcorner", very near start]\ar[d] & W \ar[dr, phantom, "\subset"] \ar[d] & \\
+U \ar[r] \ar[dr, phantom, "\subset"] & V \ar[dr, phantom, "\subset"] & Z \ar[d] \\
+& X \ar[r] & Y
+\end{tikzcd}
+\]
+
+We know that $\mc{S} \neq \varnothing$, since $X,Y,Z$ are covered by affine opens and for diagrams of affine schemes the fibre product exists and is a scheme. 
+
+we also have that for each chain of such diagram s
+\[
+\begin{tikzcd}
+& W_i \ar[d] & \\
+U_i \ar[r] & V_i \ar[dr, phantom, "\subset"] & Z \ar[d] \\
+& X\ar[r] & Y
+\end{tikzcd}
+\]
+we can take the ascending union sheaf property to get an upper bound. 
+
+By Zorn's lemma, there is a maximal open subdiagram 
+\[
+\begin{tikzcd}
+& W_0 \ar[d] \\
+U_0 \ar[r] & Z_0\\
+\end{tikzcd}
+\]
+such that $U_0\times_{V_0}W_0$ exists and is a scheme. 
+
+If $U_0\neq X$ and $V_0 \neq Y$ and $W_0\neq Z$, then we could find an open subdiagram of affine subschemes
+\[
+\begin{tikzcd}
+& W_1 \ar[d] \\
+U_1 \ar[r] & V_1
+\end{tikzcd}
+\]
+such that $U_0 \cup U_1$ or $V_0 \cup V_1$ or $W_1 \cup W_0$ is strictly larger. Applying the main lemma above, we get a contradiction. 
+
+\qed
+
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
